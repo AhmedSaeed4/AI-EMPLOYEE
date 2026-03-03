@@ -1,0 +1,7 @@
+# Requirements for AI Employee Watchers
+
+# File system monitoring
+watchdog>=4.0.0
+
+# Logging (optional, for nicer output)
+colorlog>=6.8.0

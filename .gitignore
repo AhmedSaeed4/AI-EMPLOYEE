@@ -1,0 +1,55 @@
+# Credentials and Secrets
+*.json
+!package.json
+!pyproject.toml
+credentials.json
+token.json
+*.pickle
+
+# Environment variables
+.env
+.env.local
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+ENV/
+
+# Obsidian / Vault
+.ai_employee_scripts/.obsidian/
+AI_Employee_Vault/.obsidian/
+
+# Logs
+*.log
+tmp/
+
+# Session data
+sessions/
+*.session
+
+# Token files (explicit)
+token*.json
+*_token.json
+*.token
+
+# State files with credentials
+*.state
+linkedin_state.json
+
+# Local settings (may contain MCP server configs)
+.vscode/settings.local.json
+
+
+# Venv (explicit)
+ai_employee_scripts/.venv/
+ai_employee_scripts/sessions/
+
+# Gmail watcher specific
+ai_employee_scripts/token_gmail_watcher.json
+
+# Chat/conversation logs
+chat.txt
