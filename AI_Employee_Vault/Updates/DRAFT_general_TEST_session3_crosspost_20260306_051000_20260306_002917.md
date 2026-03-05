@@ -1,11 +1,11 @@
 ---
 type: general
-original_task: TEST_session3_cancel_20260305_043200.md
+original_task: TEST_session3_crosspost_20260306_051000.md
 created_by: cloud_agent
-created_at: 2026-03-05T23:47:45.145599
+created_at: 2026-03-06T00:29:17.644889
 ---
 
-# Draft: General for TEST_session3_cancel_20260305_043200.md
+# Draft: General for TEST_session3_crosspost_20260306_051000.md
 
 Task routed but not fully processed.
 
