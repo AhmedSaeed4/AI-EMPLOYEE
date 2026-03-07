@@ -52,7 +52,7 @@ Comment below and I'll help you identify if it's ready.
 ## Human Section
 **Status:** [ ] Approve for posting  [ ] Request changes  [ ] Reject
 
-**Your Instructions:**
+ 
 <!-- Write your feedback, edits, or instructions here -->
 
 **Action if Approved:** Move this file to Approved/ folder
