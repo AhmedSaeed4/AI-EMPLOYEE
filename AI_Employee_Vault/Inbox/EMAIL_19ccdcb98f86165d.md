@@ -1,6 +1,7 @@
 ---
 type: email
 source: gmail
+source_location: cloud
 message_id: 19ccdcb98f86165d
 from: Zoom <billing@zoom.us>
 to: ahmedsaeed20026@gmail.com
@@ -16,6 +17,7 @@ received: Sun, 08 Mar 2026 14:13:17 +0000 (UTC)
 **Cc:** 
 **Date:** Sun, 08 Mar 2026 14:13:17 +0000 (UTC)
 **Message ID:** 19ccdcb98f86165d
+**Source:** Cloud
 
 ---
 

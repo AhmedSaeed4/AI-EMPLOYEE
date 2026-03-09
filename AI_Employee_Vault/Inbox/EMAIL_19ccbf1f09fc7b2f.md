@@ -1,6 +1,7 @@
 ---
 type: email
 source: gmail
+source_location: cloud
 message_id: 19ccbf1f09fc7b2f
 from: LinkedIn Job Alerts <jobalerts-noreply@linkedin.com>
 to: Ahmed Saeed <ahmedsaeed20026@gmail.com>
@@ -16,6 +17,7 @@ received: Sun, 8 Mar 2026 05:35:42 +0000 (UTC)
 **Cc:** 
 **Date:** Sun, 8 Mar 2026 05:35:42 +0000 (UTC)
 **Message ID:** 19ccbf1f09fc7b2f
+**Source:** Cloud
 
 ---
 
