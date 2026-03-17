@@ -2,6 +2,7 @@
 *.json
 !package.json
 !pyproject.toml
+!.claude/settings.json
 credentials.json
 token.json
 *.pickle
