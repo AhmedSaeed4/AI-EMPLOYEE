@@ -4,7 +4,7 @@
 
 **Hackathon:** Personal AI Employee Hackathon 0 - Building Autonomous FTEs in 2026
 
-**Current Tier:** Platinum ⏳ 80% In Progress (Cloud deployment pending)
+**Current Tier:** Platinum ✅ Deployed on AWS EC2 (eu-north-1)
 
 ---
 
@@ -693,7 +693,7 @@ dependencies = [
 | **Bronze** | ✅ Complete | 100% |
 | **Silver** | ✅ Complete | 100% |
 | **Gold** | ✅ Complete | 100% |
-| **Platinum** | ⏳ In Progress | ~80% |
+| **Platinum** | ✅ Complete | 100% |
 
 ### Platinum Tier Checklist
 
@@ -704,8 +704,9 @@ dependencies = [
 | Cloud watchers (Gmail) | ✅ |
 | PM2 configs (local + cloud) | ✅ |
 | Vault sync script | ✅ |
-| Cloud VM deployment | ❌ Pending |
-| Vault sync cron setup | ❌ Pending |
+| **Cloud VM deployment** | ✅ **AWS EC2 t3.small (eu-north-1)** |
+| Deduplication API | ✅ |
+| Vault sync cron setup | ⏳ Pending |
 
 ---
 
@@ -755,5 +756,5 @@ MIT License - See LICENSE file for details
 
 ---
 
-*Last Updated: 2026-03-14*
-*Version: 0.2.0*
+*Last Updated: 2026-03-17*
+*Version: 0.3.0*
