@@ -4,7 +4,7 @@
 
 **Hackathon:** Personal AI Employee Hackathon 0 - Building Autonomous FTEs in 2026
 
-**Current Tier:** Gold (100% Complete)
+**Current Tier:** Gold ✅ Complete → Platinum ⏳ 80% In Progress
 
 ---
 
@@ -20,6 +20,8 @@ The Personal AI Employee is an autonomous Digital FTE (Full-Time Equivalent) tha
 - **CEO Briefing** - Weekly automated business audit emailed to your inbox
 - **Human-in-the-Loop** - All sensitive actions require approval
 - **Error Recovery** - Automatic retry, watchdog monitoring, failed action queue
+- **Cloud Agents** - OpenAI Agents SDK for autonomous cloud processing (Platinum)
+- **24/7 Operation** - PM2 process management with auto-restart
 
 ---
 
@@ -30,6 +32,8 @@ The Personal AI Employee is an autonomous Digital FTE (Full-Time Equivalent) tha
 - [Quick Start](#quick-start)
 - [Usage](#usage)
 - [Project Structure](#project-structure)
+- [Cloud Deployment](#cloud-deployment)
+- [Cloud Agents](#cloud-agents)
 - [Automated Scheduling](#automated-scheduling)
 - [MCP Servers](#mcp-servers)
 - [Agent Skills](#agent-skills)
@@ -47,85 +51,83 @@ The Personal AI Employee is an autonomous Digital FTE (Full-Time Equivalent) tha
 
 ---
 
-### Architecture
+## Architecture
+
+### High-Level System Diagram
 
 ```
-                    ╔═════════════════════════════════════════════╗
-                    ║            ENTRY POINTS                    ║
-                    ╠═════════════════════════════════════════════╣
-                    ║  1. Cron Jobs (Scheduled Automation)       ║
-                    ║  2. Claude Code Skills (Interactive)       ║
-                    ║  3. Watchdog.py (Production Monitoring)    ║
-                    ╚═════════════════════════════════════════════╝
-                                     │
-                    ┌────────────────┴────────────────┐
-                    ▼                                 ▼
-        ╔═══════════════════════╗         ╔═══════════════════════╗
-        ║    Cron Triggers      ║         ║     Watchdog.py       ║
-        ║  (linkedin/meta/      ║         ║  Monitors & Restarts  ║
-        ║   twitter/weekly)     ║         ║   Orchestrator.py     ║
-        ╚════════════╤═══════════╝         ╚════════════╤═════════╝
-                     │                                 │
-                     │    ┌────────────────────────────┘
-                     │    │
-                     ▼    ▼
-┌─────────────────────────────────────────────────────────────┐
-│                    Orchestrator.py                           │
-│              (Master Controller - Monitors Folders)          │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐      │
-│  │ Needs_Action │  │   Approved   │  │   Rejected   │      │
-│  └──────────────┘  └──────────────┘  └──────────────┘      │
-└───────────────────────────┬─────────────────────────────────┘
-                            │
-        ┌───────────────────┴───────────────────┐
-        │                                       │
-        ▼                                       ▼
-┌─────────────────┐                   ┌─────────────────┐
-│  Perception     │                   │   Reasoning     │
-│   (Watchers)    │──────────────────▶│   (Claude)      │
-│                 │                   │                 │
-│ • File System   │    Creates        │ • Process Files │
-│ • Gmail         │    Action Files   │ • Create Plans  │
-│ • LinkedIn      │                   │ • Generate Posts│
-└─────────────────┘                   └────────┬────────┘
-                                               │
-                                               ▼
-                                        ┌──────────────┐
-                                        │ Pending_     │
-                                        │  Approval    │
-                                        └──────┬───────┘
-                                               │
-                                    ┌──────────┴──────────┐
-                                    ▼                     ▼
-                              ┌──────────┐          ┌──────────┐
-                              │ Human    │          │  Rejected│
-                              │ Review   │          └──────────┘
-                              └────┬─────┘
-                                   │
-                                   ▼
-                            ┌──────────────┐
-                            │   Approved   │
-                            └──────┬───────┘
-                                   │
-                                   ▼
-┌─────────────────┐     ┌─────────────────┐
-│     Action      │     │    Execution    │
-│     (MCPs)      │────▶│   (Orchestrator)│
-│                 │     └─────────────────┘
-│ • Gmail         │             │
-│ • LinkedIn      │             ▼
-│ • Meta          │     ┌──────────────┐
-│ • Twitter       │     │     Done     │
-│ • Odoo          │     └──────────────┘
-└─────────────────┘
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│                              AI EMPLOYEE SYSTEM                                  │
+├─────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                 │
+│  ╔═════════════════════════════════════════════════════════════════════════╗   │
+│  ║                         ENTRY POINTS                                      ║   │
+│  ╠═════════════════════════════════════════════════════════════════════════╣   │
+│  ║  1. Cron Jobs (Scheduled Automation)                                      ║   │
+│  ║  2. Claude Code Skills (Interactive)                                      ║   │
+│  ║  3. Watchdog.py (Production Monitoring)                                   ║   │
+│  ║  4. Cloud Orchestrator (24/7 Cloud Operation)                             ║   │
+│  ╚═════════════════════════════════════════════════════════════════════════╝   │
+│                                      │                                          │
+│                    ┌─────────────────┴─────────────────┐                       │
+│                    ▼                                   ▼                        │
+│  ┌─────────────────────────────────┐   ┌─────────────────────────────────┐    │
+│  │         LOCAL (Your PC)         │   │        CLOUD (VM 24/7)          │    │
+│  │                                 │   │                                 │    │
+│  │  PM2 → watchdog.py              │   │  PM2 → cloud_orchestrator.py    │    │
+│  │         │                       │   │         │                       │    │
+│  │         ▼                       │   │         ▼                       │    │
+│  │  orchestrator.py                │   │  ┌─────────────────────────┐    │    │
+│  │         │                       │   │  │   Cloud Agents (OpenAI) │    │    │
+│  │         ▼                       │   │  │   ┌─────────────────┐   │    │    │
+│  │  ┌─────────────────┐            │   │  │   │  TriageAgent    │   │    │    │
+│  │  │ Local Watchers  │            │   │  │   │  (Router)       │   │    │    │
+│  │  │ • filesystem    │            │   │  │   └────────┬────────┘   │    │    │
+│  │  │ • gmail         │            │   │  │            │            │    │    │
+│  │  │ • linkedin      │            │   │  │   ┌────────┼────────┐   │    │    │
+│  │  └─────────────────┘            │   │  │   ▼        ▼        ▼   │    │    │
+│  │                                 │   │  │ Email   Social  Finance │    │    │
+│  └─────────────────────────────────┘   │  └─────────────────────────┘    │    │
+│                                        │         │                       │    │
+│                                        │         ▼                       │    │
+│                                        │  ┌─────────────────┐            │    │
+│                                        │  │ Cloud Watchers  │            │    │
+│                                        │  │ • gmail         │            │    │
+│                                        │  └─────────────────┘            │    │
+│                                        └─────────────────────────────────┘    │
+│                                                                                 │
+│  ╔═════════════════════════════════════════════════════════════════════════╗   │
+│  ║                    SHARED STATE (Git Sync)                               ║   │
+│  ║                                                                          ║   │
+│  ║   AI_Employee_Vault/  ←──── vault_sync.py (cron every 5 min) ────→      ║   │
+│  ║                                                                          ║   │
+│  ║   • Logs/gmail_processed_ids.json (prevents duplicate processing)       ║   │
+│  ║   • Dashboard.md, Content_To_Post/, Pending_Approval/                   ║   │
+│  ╚═════════════════════════════════════════════════════════════════════════╝   │
+│                                                                                 │
+└─────────────────────────────────────────────────────────────────────────────────┘
+```
 
-═══════════════════════════════════════════════════════════════
-                    Scheduled Automation (Cron)
-═══════════════════════════════════════════════════════════════
-  2 AM → LinkedIn Post    3 AM → Meta Post     4 AM → Twitter
-                                            │
-                                            ▼
-                                   6 AM Monday → CEO Briefing
+### Architecture Layers
+
+| Layer | Components | Purpose |
+|-------|------------|---------|
+| **Perception** | Watchers (File, Gmail, LinkedIn) | Monitor external inputs |
+| **Reasoning** | Claude Code + Cloud Agents | Process tasks, make decisions |
+| **Action** | MCP Servers (6 total) | Execute external actions |
+| **Orchestration** | orchestrator.py, cloud_orchestrator.py | Manage processes, health checks |
+| **State** | Git Sync, Vault | Shared state, persistence |
+
+### Processing Flow
+
+```
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│  PERCEPTION     │───▶│  REASONING      │───▶│  ACTION         │
+│  (Watchers)     │    │  (Claude/AI)    │    │  (MCP Servers)  │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+
+Local:  Watcher → Needs_Action → Claude → Pending_Approval → Human → Approved → MCP
+Cloud:  Watcher → Needs_Action → AI Agent → Pending_Approval → Human → Approved → MCP
 ```
 
 ---
@@ -138,6 +140,7 @@ The Personal AI Employee is an autonomous Digital FTE (Full-Time Equivalent) tha
 - **Claude Code** (Pro subscription or Free with Gemini API)
 - **Obsidian** (for vault/dashboard)
 - **UV** (Python package manager)
+- **Node.js 18+** and **PM2** (for 24/7 operation)
 
 ### Installation
 
@@ -157,42 +160,21 @@ uv run playwright install chromium
 cp .env.example .env
 # Edit .env with your API credentials
 
-# 5. Configure Claude Code MCP servers
-# Edit ~/.config/claude-code/mcp.json or project .claude/settings.local.json
+# 5. Set up Gmail OAuth
+uv run python refresh_gmail_mcp_token.py
 ```
 
-### Configuration
-
-Create your `.env` file in `ai_employee_scripts/`:
+### Start the System
 
 ```bash
-# Gmail
-GMAIL_CLIENT_ID=your_client_id
-GMAIL_CLIENT_SECRET=your_client_secret
+# Development (single process)
+cd ai_employee_scripts
+uv run python orchestrator.py
 
-# LinkedIn API
-LINKEDIN_ACCESS_TOKEN=your_access_token
-LINKEDIN_CLIENT_ID=your_client_id
-LINKEDIN_CLIENT_SECRET=your_client_secret
-
-# LinkedIn Session (for messaging)
-LINKEDIN_MCP_SESSION=/path/to/sessions/linkedin_mcp
-
-# Odoo Accounting
-ODOO_URL=http://localhost:8069
-ODOO_DB=odoo
-ODOO_USER=your-email@example.com
-ODOO_PASSWORD=your-odoo-password
-
-# Meta (Facebook & Instagram)
-META_ACCESS_TOKEN=your_access_token
-META_PAGE_ID=your_page_id
-
-# Twitter (X)
-X_API_KEY=your_api_key
-X_API_SECRET=your_api_secret
-X_ACCESS_TOKEN=your_access_token
-X_ACCESS_TOKEN_SECRET=your_access_token_secret
+# Production (PM2 24/7)
+pm2 start ecosystem.local.config.js
+pm2 save
+pm2 startup
 ```
 
 ---
@@ -232,7 +214,7 @@ claude code -p "/weekly-audit"
 claude code -p "/check-tasks"
 
 # Process a task file
-claude code -p "/process-file TASK_example.md"
+claude code -p "/process-file"
 
 # Execute approved actions
 claude code -p "/execute-approved"
@@ -259,37 +241,34 @@ claude code -p "/stop-watcher all"
 ai-employee/
 ├── .claude/
 │   ├── skills/              # Claude Agent Skills (18 total)
-│   │   ├── approve-action/
-│   │   ├── check-accounting/
-│   │   ├── check-tasks/
-│   │   ├── check-watchers/
-│   │   ├── create-invoice/
-│   │   ├── create-plan/
-│   │   ├── daily-summary/
-│   │   ├── execute-approved/
-│   │   ├── linkedin-posting/
-│   │   ├── meta-posting/
-│   │   ├── process-file/
-│   │   ├── start-watcher/
-│   │   ├── stop-watcher/
-│   │   ├── twitter-posting/
-│   │   ├── update-handbook/
-│   │   ├── watcher-status/
-│   │   ├── weekly-audit/
-│   │   ├── post-linkedin/
-│   │   └── check-watchers/
 │   ├── hooks/
-│   │   └── ralph_wiggum.py  # Stop hook - prevents exit with pending tasks
-│   └── settings.local.json  # MCP server configuration
+│   │   └── ralph_wiggum.py  # Stop hook
+│   └── settings.local.json  # MCP configuration
 │
 ├── ai_employee_scripts/
-│   ├── watchers/            # Perception Layer
+│   ├── watchers/            # Local Watchers
 │   │   ├── base_watcher.py
 │   │   ├── filesystem_watcher.py
 │   │   ├── gmail_watcher.py
 │   │   └── linkedin_watcher.py
 │   │
-│   ├── mcp_servers/         # Action Layer (MCP Servers)
+│   ├── cloud_watchers/      # Cloud Watchers
+│   │   ├── base_cloud_watcher.py
+│   │   ├── gmail_watcher.py
+│   │   └── linkedin_watcher.py
+│   │
+│   ├── cloud/               # Cloud Agents (Platinum)
+│   │   ├── cloud_orchestrator.py
+│   │   ├── agent_definitions/
+│   │   │   ├── triage_agent.py
+│   │   │   ├── email_agent.py
+│   │   │   ├── social_agent.py
+│   │   │   └── finance_agent.py
+│   │   ├── mcp_servers/
+│   │   │   └── odoo_server.py
+│   │   └── guardrails/
+│   │
+│   ├── mcp_servers/         # MCP Servers (6 total)
 │   │   ├── gmail_mcp.py
 │   │   ├── linkedin_api_mcp.py
 │   │   ├── linkedin_mcp.py
@@ -298,46 +277,149 @@ ai-employee/
 │   │   └── twitter_mcp.py
 │   │
 │   ├── shared/              # Error Recovery
-│   │   ├── error_handler.py
-│   │   └── retry_handler.py
-│   │
 │   ├── scripts/             # Cron Triggers
-│   │   ├── linkedin_cron_trigger.py
-│   │   ├── meta_cron_trigger.py
-│   │   ├── twitter_cron_trigger.py
-│   │   └── weekly_audit_cron_trigger.py
-│   │
-│   ├── orchestrator.py      # Master controller
+│   ├── orchestrator.py      # Local orchestrator
 │   ├── watchdog.py          # Process monitor
-│   ├── pyproject.toml       # Python dependencies
-│   └── .env                 # Environment variables (not in git)
+│   ├── vault_sync.py        # Git sync (Platinum)
+│   ├── ecosystem.local.config.js   # PM2 local config
+│   └── ecosystem.cloud.config.js   # PM2 cloud config
 │
 ├── AI_Employee_Vault/       # Obsidian Vault (Data)
-│   ├── Dashboard.md         # Central status hub
-│   ├── Company_Handbook.md  # AI behavior rules
-│   ├── Business_Goals.md    # Business context
-│   ├── Inbox/               # Raw data from watchers
-│   ├── Needs_Action/        # Tasks awaiting processing
-│   ├── Done/                # Completed tasks
-│   ├── Pending_Approval/    # Actions requiring approval
-│   ├── Approved/            # Approved actions
-│   ├── Rejected/            # Rejected actions
-│   ├── Failed_Queue/        # Failed actions (human review)
-│   ├── Plans/               # Complex task plans
-│   ├── Logs/                # Activity logs
-│   ├── Briefings/           # CEO Briefing reports
-│   └── Content_To_Post/     # Social media queue
+│   ├── Dashboard.md
+│   ├── Company_Handbook.md
+│   ├── Inbox/
+│   ├── Needs_Action/
+│   ├── Pending_Approval/
+│   ├── Approved/
+│   ├── Done/
+│   ├── Logs/
+│   │   └── gmail_processed_ids.json  # Shared state
+│   └── Content_To_Post/
 │
-├── README.md                # This file
-├── PROJECT_STATUS.md        # Detailed project status
-└── CLAUDE.md                # Claude Code instructions
+├── documentation/           # Full documentation
+│   ├── GETTING_STARTED.md
+│   ├── CLOUD_DEPLOYMENT_GUIDE.md
+│   ├── CLOUD_AGENTS_GUIDE.md
+│   ├── PM2_SETUP_GUIDE.md
+│   └── ...
+│
+├── README.md
+├── PROJECT_STATUS.md
+└── CLAUDE.md
 ```
+
+---
+
+## Cloud Deployment
+
+Deploy to a cloud VM for 24/7 autonomous operation.
+
+### Quick Setup
+
+```bash
+# On cloud VM (Ubuntu)
+git clone https://github.com/your-username/ai-employee.git
+cd ai-employee/ai_employee_scripts
+
+# Install dependencies
+uv sync
+
+# Configure environment
+cp .env.cloud.example .env
+# Edit .env with cloud credentials
+
+# Start with PM2
+pm2 start ecosystem.cloud.config.js
+pm2 save
+pm2 startup
+```
+
+### Shared State (Git Sync)
+
+Prevents duplicate email processing between local and cloud:
+
+```bash
+# Set up cron (both local and cloud)
+*/5 * * * * cd /path/to/ai_employee_scripts && uv run python vault_sync.py
+```
+
+**How it works:**
+1. Cloud watcher processes email → saves ID to `gmail_processed_ids.json`
+2. Git push → local pulls
+3. Local watcher reads same file → skips already processed emails
+
+### PM2 Configuration
+
+| Config | Purpose | Runs |
+|--------|---------|------|
+| `ecosystem.local.config.js` | Local PC | watchdog.py → orchestrator.py |
+| `ecosystem.cloud.config.js` | Cloud VM | cloud_orchestrator.py |
+
+---
+
+## Cloud Agents
+
+Cloud Agents are autonomous AI agents built with **OpenAI Agents SDK** that run 24/7 on the cloud VM.
+
+### Agent Architecture
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                    TriageAgent                          │
+│  - Analyzes incoming tasks                              │
+│  - Routes to appropriate specialist                     │
+│  - Attaches MCP servers to specialists                  │
+└───────────────────────┬─────────────────────────────────┘
+                        │
+        ┌───────────────┼───────────────┐
+        │               │               │
+        ▼               ▼               ▼
+┌────────────┐  ┌────────────┐  ┌────────────┐
+│ EmailAgent │  │SocialAgent │  │FinanceAgent│
+│            │  │            │  │            │
+│ - Draft    │  │ - Posts    │  │ - Invoices │
+│ - Reply    │  │ - Schedule │  │ - Reports  │
+│ - Search   │  │ - Analyze  │  │ - Odoo MCP │
+└────────────┘  └────────────┘  └────────────┘
+```
+
+### Agents
+
+| Agent | Purpose | MCP Integration |
+|-------|---------|-----------------|
+| **TriageAgent** | Routes tasks to specialists | Attaches MCP to specialists |
+| **EmailAgent** | Email processing | None |
+| **SocialAgent** | Social media management | None |
+| **FinanceAgent** | Accounting/invoicing | Odoo MCP (per-request) |
+
+### MCP Integration Pattern
+
+**Critical:** MCP servers use per-request lifecycle, not global caching:
+
+```python
+# ✅ CORRECT
+async def handle_request():
+    server = MCPServerStdio(...)
+    agent.mcp_servers = [server]
+    await server.connect()
+    try:
+        result = await Runner.run(agent, ...)
+    finally:
+        await server.cleanup()
+```
+
+### Security
+
+Cloud MCP is **read-only + draft-only**:
+- Can read customer data
+- Can create draft invoices
+- Cannot post/finalize invoices
 
 ---
 
 ## Automated Scheduling
 
-The AI Employee includes 4 cron jobs for automated operation:
+4 cron jobs for automated operation:
 
 | Time | Day | Platform | Purpose |
 |------|-----|----------|---------|
@@ -349,35 +431,33 @@ The AI Employee includes 4 cron jobs for automated operation:
 ### Setup Cron Jobs
 
 ```bash
-# Edit crontab
 crontab -e
 
-# Add these lines:
+# Add:
 PATH=/home/adev/.local/bin:/usr/local/bin:/usr/bin:/bin
 
-# Social Posts (Daily)
-0 2 * * * cd "/path/to/ai-employee/ai_employee_scripts" && uv run python scripts/linkedin_cron_trigger.py >> /path/to/AI_Employee_Vault/Logs/cron.log 2>&1
-0 3 * * * cd "/path/to/ai-employee/ai_employee_scripts" && uv run python scripts/meta_cron_trigger.py >> /path/to/AI_Employee_Vault/Logs/cron.log 2>&1
-0 4 * * * cd "/path/to/ai-employee/ai_employee_scripts" && uv run python scripts/twitter_cron_trigger.py >> /path/to/AI_Employee_Vault/Logs/cron.log 2>&1
-
-# CEO Briefing (Monday mornings)
-0 6 * * 1 cd "/path/to/ai-employee/ai_employee_scripts" && uv run python scripts/weekly_audit_cron_trigger.py >> /path/to/AI_Employee_Vault/Logs/cron.log 2>&1
+0 2 * * * cd "/path/to/ai_employee_scripts" && uv run python scripts/linkedin_cron_trigger.py >> /path/to/Logs/cron.log 2>&1
+0 3 * * * cd "/path/to/ai_employee_scripts" && uv run python scripts/meta_cron_trigger.py >> /path/to/Logs/cron.log 2>&1
+0 4 * * * cd "/path/to/ai_employee_scripts" && uv run python scripts/twitter_cron_trigger.py >> /path/to/Logs/cron.log 2>&1
+0 6 * * 1 cd "/path/to/ai_employee_scripts" && uv run python scripts/weekly_audit_cron_trigger.py >> /path/to/Logs/cron.log 2>&1
 ```
 
 ---
 
 ## MCP Servers
 
-The project uses 6 MCP servers for external actions:
+6 MCP servers for external actions:
 
 | Server | Purpose | Tools |
 |--------|---------|-------|
 | `gmail` | Email operations | send_email, draft_email, search_emails, get_thread |
 | `linkedin_api` | LinkedIn posting | post_to_linkedin, get_linkedin_profile |
 | `linkedin` | LinkedIn messaging | get_messages, reply_to_message, validate_session |
-| `odoo` | Accounting | create_draft_invoice, get_invoices, get_payments, get_revenue, get_expenses |
-| `meta-api` | Facebook/Instagram | post_to_facebook, post_to_instagram, post_to_both, get_meta_profile |
+| `odoo` | Accounting | create_draft_invoice, get_invoices, get_revenue, get_expenses |
+| `meta-api` | Facebook/Instagram | post_to_facebook, post_to_instagram, post_to_both |
 | `twitter-api` | Twitter/X | post_tweet, post_business_update, get_twitter_profile |
+
+**Cloud MCP (7th):** `cloud/mcp_servers/odoo_server.py` - Read-only + draft-only
 
 ### MCP Configuration
 
@@ -399,7 +479,10 @@ Add to `~/.config/claude-code/mcp.json` or `.claude/settings.local.json`:
     "linkedin": {
       "command": "uv",
       "args": ["run", "python", "mcp_servers/linkedin_mcp.py"],
-      "cwd": "/path/to/ai-employee/ai_employee_scripts"
+      "cwd": "/path/to/ai-employee/ai_employee_scripts",
+      "env": {
+        "LINKEDIN_MCP_SESSION": "/path/to/sessions/linkedin_mcp"
+      }
     },
     "odoo": {
       "command": "uv",
@@ -420,11 +503,13 @@ Add to `~/.config/claude-code/mcp.json` or `.claude/settings.local.json`:
 }
 ```
 
+**Note:** Replace `/path/to/ai-employee` with your actual project path. The `linkedin` MCP server requires the `LINKEDIN_MCP_SESSION` environment variable pointing to the Playwright session directory.
+
 ---
 
 ## Agent Skills
 
-All AI functionality is implemented as Claude Agent Skills:
+18 skills organized by category:
 
 ### Task Management
 - `/check-tasks` - List pending tasks
@@ -468,13 +553,6 @@ All AI functionality is implemented as Claude Agent Skills:
                                                  │
                                                  ▼
                                           ┌──────────────┐
-                                          │    Claude    │
-                                          │   Creates    │
-                                          │    Plans     │
-                                          └──────┬───────┘
-                                                 │
-                                                 ▼
-                                          ┌──────────────┐
                                           │   Pending_   │
                                           │  Approval    │
                                           └──────┬───────┘
@@ -489,14 +567,7 @@ All AI functionality is implemented as Claude Agent Skills:
                             ▼                                         ▼
                      ┌──────────────┐                          ┌──────────────┐
                      │  Approved    │                          │  Rejected    │
-                     │              │                          └──────────────┘
-                     └──────┬───────┘
-                            │
-                            ▼
-                     ┌──────────────┐
-                     │    Orchestr- │
-                     │    ator      │
-                     └──────┬───────┘
+                     └──────┬───────┘                          └──────────────┘
                             │
                             ▼
                      ┌──────────────┐
@@ -514,8 +585,6 @@ All AI functionality is implemented as Claude Agent Skills:
 
 ## Error Recovery & Graceful Degradation
 
-The AI Employee includes comprehensive error handling:
-
 ### Error Categories
 
 | Category | Examples | Recovery |
@@ -528,23 +597,10 @@ The AI Employee includes comprehensive error handling:
 
 ### Components
 
-- **`error_handler.py`** - Error classification system
-- **`retry_handler.py`** - Async/sync retry decorators with exponential backoff
-- **`watchdog.py`** - Separate process that monitors and restarts orchestrator
-- **`Failed_Queue/`** - Failed actions stored for human review
-
-### Watchdog Process
-
-```bash
-# Start watchdog (monitors orchestrator)
-cd ai_employee_scripts
-uv run python watchdog.py
-```
-
-The watchdog will:
-- Monitor orchestrator process health
-- Auto-restart if crashed (max 5 restarts/hour)
-- Alert human if restart limit exceeded
+- **`error_handler.py`** - Error classification
+- **`retry_handler.py`** - Retry with exponential backoff
+- **`watchdog.py`** - Monitors and restarts orchestrator
+- **`Failed_Queue/`** - Failed actions for human review
 
 ---
 
@@ -554,12 +610,10 @@ The watchdog will:
 - **Image required** - Must provide public image URL
 - **Caption limit** - 2200 characters
 - **Image size** - 1080x1080px recommended
-- **Format** - JPEG or PNG
 
 ### Twitter/X Posting
 - **Character limit** - 280 characters (strict)
-- **API credits** - Required for posting
-- **Note:** Implementation is complete; posting requires X API credits
+- **API credits** - Required for posting (402 Payment Required)
 
 ### LinkedIn Posting
 - **Character limit** - 3000 characters
@@ -582,42 +636,28 @@ The watchdog will:
 
 ### Watcher not running
 ```bash
-# Check if process exists
 ps aux | grep watcher
-
-# Check logs
 tail -f AI_Employee_Vault/Logs/cron.log
-
-# Restart watcher
 claude code -p "/start-watcher filesystem"
 ```
 
 ### MCP server not connecting
 ```bash
-# Verify MCP server runs manually
 cd ai_employee_scripts
 uv run python mcp_servers/gmail_mcp.py
-
-# Check Claude Code logs
-# View Claude Code settings to verify MCP configuration
 ```
 
-### Orchestrator crashed
+### PM2 issues
 ```bash
-# Check if watchdog is running (should auto-restart)
-ps aux | grep watchdog
-
-# Manual restart
-cd ai_employee_scripts
-uv run python orchestrator.py
+pm2 status
+pm2 logs ai-employee-local --lines 50
+pm2 restart ai-employee-local
 ```
 
 ### Ralph Wiggum hook blocking exit
 ```bash
-# Create bypass file in vault
 touch AI_Employee_Vault/stop_ralph
-
-# Or complete pending tasks
+# Or process pending tasks
 claude code -p "/check-tasks"
 ```
 
@@ -625,23 +665,23 @@ claude code -p "/check-tasks"
 
 ## Dependencies
 
-```
-google-api-python-client>=2.189.0
-google-auth-httplib2>=0.3.0
-google-auth-oauthlib>=1.2.4
-playwright>=1.58.0
-watchdog>=6.0.0
-mcp>=0.1.0
-playwright-stealth>=2.0.2
-httpx>=0.28.1
-odoorpc>=0.10.1
-tweepy>=4.16.0
-```
+```toml
+[project]
+requires-python = ">=3.13"
 
-Install with:
-```bash
-cd ai_employee_scripts
-uv sync
+dependencies = [
+    "google-api-python-client>=2.189.0",
+    "google-auth-oauthlib>=1.2.4",
+    "playwright>=1.58.0",
+    "playwright-stealth>=2.0.2",
+    "watchdog>=6.0.0",
+    "mcp>=0.1.0",
+    "httpx>=0.27.0",
+    "fastmcp>=0.1.0",
+    "odoorpc>=0.10.0",
+    "tweepy>=4.16.0",
+    "openai-agents>=0.1.0",  # Cloud Agents
+]
 ```
 
 ---
@@ -653,21 +693,19 @@ uv sync
 | **Bronze** | ✅ Complete | 100% |
 | **Silver** | ✅ Complete | 100% |
 | **Gold** | ✅ Complete | 100% |
-| **Platinum** | ⏳ Not Started | 0% |
+| **Platinum** | ⏳ In Progress | ~80% |
 
-### Gold Tier Checklist
+### Platinum Tier Checklist
 
 | Requirement | Status |
 |-------------|--------|
-| Full cross-domain (Personal + Business) | ✅ |
-| Odoo accounting integration | ✅ |
-| Facebook/Instagram integration | ✅ |
-| Twitter (X) integration | ✅ |
-| Weekly CEO Briefing | ✅ |
-| Error recovery / graceful degradation | ✅ |
-| Ralph Wiggum loop | ✅ |
-| Comprehensive audit logging | ✅ |
-| Documentation | ✅ |
+| Cloud agents (OpenAI Agents SDK) | ✅ |
+| Cloud MCP integration | ✅ |
+| Cloud watchers (Gmail) | ✅ |
+| PM2 configs (local + cloud) | ✅ |
+| Vault sync script | ✅ |
+| Cloud VM deployment | ❌ Pending |
+| Vault sync cron setup | ❌ Pending |
 
 ---
 
@@ -678,6 +716,22 @@ uv sync
 - **Audit logging** for all actions in `Logs/` folder
 - **Approval workflow** prevents unintended actions
 - **Session isolation** for LinkedIn messaging
+- **Cloud MCP** is read-only + draft-only
+
+---
+
+## Documentation
+
+Full documentation available in `documentation/`:
+
+| Document | Description |
+|----------|-------------|
+| [GETTING_STARTED.md](documentation/GETTING_STARTED.md) | Installation guide |
+| [PROJECT_ARCHITECTURE.md](documentation/PROJECT_ARCHITECTURE.md) | System architecture |
+| [CLOUD_DEPLOYMENT_GUIDE.md](documentation/CLOUD_DEPLOYMENT_GUIDE.md) | Cloud deployment |
+| [CLOUD_AGENTS_GUIDE.md](documentation/CLOUD_AGENTS_GUIDE.md) | Cloud agents |
+| [PM2_SETUP_GUIDE.md](documentation/PM2_SETUP_GUIDE.md) | PM2 setup |
+| [TROUBLESHOOTING_GUIDE.md](documentation/TROUBLESHOOTING_GUIDE.md) | Troubleshooting |
 
 ---
 
@@ -697,9 +751,9 @@ MIT License - See LICENSE file for details
 
 - **Hackathon:** Personal AI Employee Hackathon 0 - Building Autonomous FTEs in 2026
 - **Inspired by:** Claude Code Agent Skills and Model Context Protocol (MCP)
-- **Tools:** Claude Code, Obsidian, UV, Playwright, Odoo
+- **Tools:** Claude Code, Obsidian, UV, Playwright, Odoo, OpenAI Agents SDK
 
 ---
 
-*Last Updated: 2026-02-28*
-*Version: 0.1.0*
+*Last Updated: 2026-03-14*
+*Version: 0.2.0*

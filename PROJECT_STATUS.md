@@ -1,9 +1,9 @@
 # Personal AI Employee - Project Status
 
 **Hackathon:** Personal AI Employee Hackathon 0 - Building Autonomous FTEs in 2026
-**Current Tier:** ✅ **SILVER** (100% Complete) → **GOLD** (~95% Complete)
-**Date:** 2026-02-26
-**Updated:** Added Error Recovery & Graceful Degradation (retry handler, watchdog, failed queue)
+**Current Tier:** ✅ **GOLD** (100% Complete) → **PLATINUM** (~40% In Progress)
+**Date:** 2026-03-15
+**Updated:** Deduplication API + Client implemented, PM2 configs updated with API server
 
 ---
 
@@ -13,12 +13,12 @@
 |------|--------|----------|
 | **Bronze** | ✅ Complete | 100% |
 | **Silver** | ✅ Complete | 100% |
-| **Gold** | ⏳ In Progress | ~95% (Documentation remaining) |
-| **Platinum** | ⏳ Not Started | 0% |
+| **Gold** | ✅ Complete | 100% |
+| **Platinum** | ⏳ In Progress | ~80% (Cloud agents, MCP integration, cloud watchers, PM2 configs, vault sync script - deployment pending) |
 
 ---
 
-## Silver Tier Requirements - All Complete ✅
+## Gold Tier Requirements - All Complete ✅
 
 | Requirement | Status | Implementation |
 |-------------|--------|----------------|
@@ -26,27 +26,37 @@
 | Two+ Watcher scripts | ✅ | File System, Gmail, LinkedIn (3 total) |
 | Auto-post on LinkedIn | ✅ | `linkedin-posting` skill + cron + API |
 | Claude reasoning loop (Plan.md) | ✅ | `create-plan` skill |
-| One working MCP server | ✅ | 6 MCP servers total |
+| One working MCP server | ✅ | 7 MCP servers total |
 | HITL approval workflow | ✅ | Pending_Approval → Approved → Done |
 | Basic scheduling (cron) | ✅ | 4 cron jobs (LinkedIn, Meta, Twitter, Weekly Briefing) |
 | All AI as Agent Skills | ✅ | 18 skills implemented |
+| Full cross-domain (Personal + Business) | ✅ | Email, LinkedIn, Meta, Twitter, Accounting |
+| Odoo accounting integration | ✅ | JSON-RPC MCP + 3 skills |
+| Facebook/Instagram integration | ✅ | `meta_mcp.py` + `meta-posting` skill + cron |
+| Twitter (X) integration | ⚠️ | `twitter_mcp.py` + `twitter-posting` skill + cron (see note) |
+| Weekly CEO Briefing | ✅ | `weekly-audit` skill with auto-email + cron |
+| Error recovery / graceful degradation | ✅ | `shared/error_handler.py`, `shared/retry_handler.py`, `watchdog.py`, Failed_Queue/ |
+| Ralph Wiggum loop (Stop hook) | ✅ | `.claude/hooks/ralph_wiggum.py` + `settings.local.json` |
+| Comprehensive audit logging | ✅ | Logs/ folder active |
+| Documentation | ✅ | CLAUDE.md, PROJECT_STATUS.md, MCP_INTEGRATION_GUIDE.md |
+
+**Twitter Note:** The Twitter MCP server and skill are fully functional. Posting requires X API credits (402 Payment Required). The functionality works correctly - only payment is needed to enable live posting.
 
 ---
 
-## Gold Tier Requirements
+## Platinum Tier Requirements (In Progress ~80%)
 
 | Requirement | Status | Implementation |
 |-------------|--------|----------------|
-| Full cross-domain (Personal + Business) | ✅ | Email, LinkedIn, Meta, Twitter, Accounting |
-| Odoo accounting integration | ✅ | JSON-RPC MCP + 3 skills |
-| **Facebook/Instagram integration** | ✅ | **`meta_mcp.py` + `meta-posting` skill + cron** |
-| **Twitter (X) integration** | ⚠️ | **`twitter_mcp.py` + `twitter-posting` skill + cron** (see note) |
-| Weekly CEO Briefing | ✅ | `weekly-audit` skill with auto-email + cron |
-| Error recovery / graceful degradation | ✅ | `ai_employee_scripts/shared/error_handler.py`, `ai_employee_scripts/shared/retry_handler.py`, `watchdog.py`, Failed_Queue/ (human review) |
-| Ralph Wiggum loop (Stop hook) | ✅ | `.claude/hooks/ralph_wiggum.py` + `settings.local.json` |
-| Comprehensive audit logging | ✅ | Logs/ folder active |
-
-**Twitter Note:** The Twitter MCP server and skill are fully functional. Posting requires X API credits (402 Payment Required). The functionality works correctly - only payment is needed to enable live posting.
+| All Gold requirements | ✅ | 100% complete |
+| **Cloud agents (OpenAI Agents SDK)** | ✅ | 5 agents implemented (Triage + 4 specialists) |
+| **Cloud MCP integration** | ✅ | Odoo MCP working with per-request lifecycle |
+| **Cloud watchers (Gmail)** | ✅ | Gmail watcher with .env credentials, shared state |
+| **Cloud deployment (24/7)** | ❌ | Setup complete, deployment pending |
+| **Vault sync (Git)** | ✅ | Script created with API integration |
+| **Deduplication API** | ✅ | Flask API + SQLite + Client implemented |
+| **24/7 operation (PM2)** | ✅ | `ecosystem.local.config.js` + `ecosystem.cloud.config.js` tested and working |
+| **Odoo Cloud deployment** | ❌ | Not started |
 
 ---
 
@@ -54,11 +64,16 @@
 
 ### Perception Layer (Watchers)
 ```
-ai_employee_scripts/watchers/
+ai_employee_scripts/watchers/                        # Local watchers (credentials.json)
 ├── base_watcher.py              # Abstract base class
 ├── filesystem_watcher.py        # Monitors Drop_Zone/ folder
 ├── gmail_watcher.py             # Gmail API integration
 └── linkedin_watcher.py          # LinkedIn messages (Playwright)
+
+ai_employee_scripts/cloud_watchers/                  # Cloud watchers (.env credentials)
+├── base_cloud_watcher.py       # Base class with .env loading
+├── gmail_watcher.py             # Gmail (reads GOOGLE_CREDENTIALS from .env)
+└── linkedin_watcher.py          # LinkedIn (placeholder, mock mode)
 ```
 
 ### Reasoning Layer (Agent Skills)
@@ -84,15 +99,43 @@ ai_employee_scripts/watchers/
 └── weekly-audit/                # CEO Briefing with auto-email
 ```
 
+### Cloud Agent Architecture (NEW - Platinum Tier)
+```
+cloud/
+├── agent_definitions/
+│   ├── base_agent.py            # Base agent with guardrails
+│   ├── triage_agent.py          # Router agent with MCP integration
+│   ├── email_agent.py           # Email specialist
+│   ├── social_agent.py          # Social media specialist
+│   ├── finance_agent.py         # Finance specialist (Odoo MCP)
+│   └── models.py                # Shared data models
+├── mcp_servers/
+│   └── odoo_server.py           # Odoo MCP (read-only + draft-only)
+├── orchestrator.py              # Cloud orchestrator
+└── config/
+    └── settings.py              # Configuration
+```
+
+**Cloud Agents (5 total):**
+| Agent | Purpose | MCP Integration |
+|-------|---------|-----------------|
+| TriageAgent | Routes tasks to specialists | Attaches MCP to specialists |
+| EmailAgent | Email processing | None |
+| SocialAgent | Social media management | None |
+| FinanceAgent | Accounting/invoicing | **Odoo MCP** (per-request) |
+
 ### Action Layer (MCP Servers)
 ```
 ai_employee_scripts/mcp_servers/
 ├── gmail_mcp.py                 # Email operations
 ├── linkedin_api_mcp.py          # LinkedIn posting (API)
 ├── linkedin_mcp.py              # LinkedIn messaging (Playwright)
-├── odoo_mcp.py                  # Odoo accounting (JSON-RPC)
+├── odoo_mcp.py                  # Odoo accounting (JSON-RPC) - LOCAL
 ├── meta_mcp.py                  # Facebook & Instagram posting
 └── twitter_mcp.py               # Twitter (X) posting
+
+cloud/mcp_servers/
+└── odoo_server.py               # Odoo accounting (JSON-RPC) - CLOUD (read-only + draft-only)
 ```
 
 ### Orchestration Layer
@@ -100,6 +143,7 @@ ai_employee_scripts/mcp_servers/
 ai_employee_scripts/
 ├── orchestrator.py              # Master controller (monitors Needs_Action, Approved, Rejected)
 ├── watchdog.py                  # SEPARATE: Monitors and restarts orchestrator
+├── vault_sync.py                # Auto-sync vault via git (local + cloud sync)
 ├── shared/
 │    ├── __init__.py              # Module exports
 │    ├── error_handler.py         # Error classification (Transient, Auth, etc.)
@@ -109,6 +153,17 @@ ai_employee_scripts/
     ├── meta_cron_trigger.py      # Cron: Meta at 3 AM
     ├── twitter_cron_trigger.py   # Cron: Twitter at 4 AM
     └── weekly_audit_cron_trigger.py  # Cron: CEO Briefing Mon 6 AM
+
+cloud/
+├── cloud_orchestrator.py        # Cloud orchestrator with watcher management
+│   ├── _start_cloud_watchers()   # Start Gmail/LinkedIn watchers as subprocesses
+│   ├── _check_watcher_health()   # Monitor and restart crashed watchers
+│   └── _stop_cloud_watchers()    # Graceful shutdown
+└── ecosystem.cloud.config.js    # PM2 config for cloud deployment
+
+ai_employee_scripts/
+├── ecosystem.local.config.js     # PM2 config for local watchdog
+└── ecosystem.cloud.config.js     # PM2 config for cloud orchestrator
 
 .claude/
 ├── hooks/
@@ -143,6 +198,48 @@ AI_Employee_Vault/
 
 ---
 
+## Shared State via Git Sync
+
+**Purpose:** Prevent duplicate email processing when both local and cloud watchers are running.
+
+**Implementation:**
+- `Logs/gmail_processed_ids.json` - Shared state file
+- Both local and cloud watchers read/write to the SAME file
+- File syncs via git push/pull between local and cloud
+
+**How it works:**
+```
+1. Cloud watcher processes email → saves ID to gmail_processed_ids.json
+2. Git push → local pulls
+3. Local watcher loads same state file → skips already processed emails
+4. No duplicates!
+```
+
+**Path Resolution:**
+| Watcher | Path Type | Resolves To |
+|---------|-----------|-------------|
+| Local | Relative (`../AI_Employee_Vault`) | Same absolute path |
+| Cloud | Absolute (`.resolve()`) | Same absolute path |
+
+Both watchers write to: `AI_Employee_Vault/Logs/gmail_processed_ids.json`
+
+---
+
+## Credential Strategy
+
+| Component | Credential Source | Reason |
+|-----------|-------------------|--------|
+| **Local watchers** | `credentials.json` file | Traditional file-based credentials |
+| **Cloud watchers** | `.env` (GOOGLE_CREDENTIALS variable) | Environment-based for cloud deployment |
+| **MCP Servers** | `.env` | API keys and tokens |
+
+**Why separate?**
+- Local can continue using file-based OAuth (credentials.json)
+- Cloud can deploy with just .env configuration
+- No changes needed to local workflow
+
+---
+
 ## MCP Configuration
 
 ```json
@@ -151,12 +248,74 @@ AI_Employee_Vault/
     "gmail": "Gmail API operations",
     "linkedin_api": "LinkedIn posting (official API)",
     "linkedin": "LinkedIn messaging (Playwright)",
-    "odoo": "Odoo accounting (JSON-RPC)",
+    "odoo": "Odoo accounting (JSON-RPC) - LOCAL",
+    "odoo_cloud": "Odoo accounting (JSON-RPC) - CLOUD (read-only + draft-only)",
     "meta-api": "Facebook & Instagram posting",
     "twitter-api": "Twitter (X) posting (requires API credits)"
   }
 }
 ```
+
+---
+
+## Cloud MCP Integration (NEW)
+
+### Per-Request MCP Lifecycle Pattern
+
+**Critical:** MCP servers must be created and connected **per-request**, not globally cached.
+
+```python
+# ❌ WRONG - Global caching (causes issues)
+server = MCPServerStdio(...)
+agent.mcp_servers = [server]
+
+# ✅ CORRECT - Per-request lifecycle
+async def handle_request():
+    server = MCPServerStdio(...)
+    agent.mcp_servers = [server]
+    await server.connect()
+    try:
+        result = await Runner.run(agent, ...)
+    finally:
+        await server.cleanup()
+        agent.mcp_servers = []
+```
+
+### Key Fixes Applied
+
+| Issue | Root Cause | Fix |
+|-------|-----------|-----|
+| `FinanceAction is not defined` | Import structure | Separated models import from SDK import |
+| `cannot import ClientSession` | Namespace collision | Renamed `cloud/mcp/` → `cloud/mcp_servers/` |
+| Tools not executing | Wrong agent instance | Attach MCP to handoff agent, not global cache |
+| Missing Journal | Odoo requires explicit journal_id | Auto-find Sales Journal |
+| Serialization error | `browse()` returns functions | Use `Journal.read()` instead |
+| Invalid field `residual` | Wrong field name | Use `amount_residual` |
+| Invalid field `default_credit_account_id` | Wrong field name | Use `default_account_id` |
+
+### Documentation
+
+- **`MCP_INTEGRATION_GUIDE.md`** - Complete guide for integrating MCP with OpenAI Agents SDK
+- **`CLOUD_AGENT_REPORT.md`** - Cloud agent implementation details
+- **`DEBUGGING_SESSION_REPORT.md`** - Debugging session notes
+
+---
+
+## Odoo Cloud MCP Server
+
+**File:** `cloud/mcp_servers/odoo_server.py`
+
+**Tools (all tested and passing):**
+| Tool | Purpose | Status |
+|------|---------|--------|
+| `get_customer` | Get customer information | ✅ PASS |
+| `search_partners` | Search for customers/vendors | ✅ PASS |
+| `get_invoice_history` | Get customer's past invoices | ✅ PASS |
+| `get_pricing` | Get service pricing rates | ✅ PASS |
+| `create_draft_invoice` | Create draft invoice | ✅ PASS |
+| `get_available_tools` | List all tools | ✅ PASS |
+
+**Security:** Read-only + draft-only (cloud cannot post/finalize invoices)
 
 ---
 
@@ -182,28 +341,252 @@ PATH=/home/adev/.local/bin:/usr/local/bin:/usr/bin:/bin
 0 6 * * 1 cd "/home/adev/ai-employee/ai_employee_scripts" && uv run python scripts/weekly_audit_cron_trigger.py >> /home/adev/ai-employee/AI_Employee_Vault/Logs/cron.log 2>&1
 ```
 
-**Daily Social Posts Flow:**
-1. Each cron triggers respective script at scheduled time
-2. Script calls appropriate skill (`/linkedin-posting`, `/meta-posting`, `/twitter-posting`)
-3. Skills generate posts based on `Business_Goals.md`
-4. Files created in `Pending_Approval/` and `Content_To_Post/queued/`
-5. Human reviews in morning, adds images for Instagram if needed
-6. Move to `Approved/` → Orchestrator posts via `execute-approved`
+---
 
-**Weekly CEO Briefing Flow (Monday 6 AM):**
-1. Cron triggers `weekly_audit_cron_trigger.py`
-2. Script calls `/weekly-audit` skill
-3. Skill fetches data from Odoo + vault
-4. Generates comprehensive briefing
-5. Saves to `Briefings/` folder
-6. **Emails briefing to your inbox via Gmail MCP**
-7. Updates Dashboard.md with link
+## PM2 for 24/7 Operation (Platinum Tier)
+
+**What is PM2?**
+PM2 (Process Manager 2) keeps your Watcher scripts running 24/7. It's a process manager that acts as a watchdog.
+
+**Why is it Needed?**
+| Problem | Without PM2 | With PM2 |
+|---------|-------------|---------|
+| Session closes | Script dies | ✅ Auto-restarts |
+| Unhandled exception | Script exits | ✅ Auto-restarts |
+| System reboot | Manual restart | ✅ Auto-starts on boot |
+| Logging | Lost output | ✅ Captures logs |
+
+**Configuration Files:**
+| File | Purpose | Runs |
+|------|---------|------|
+| `ecosystem.local.config.js` | Local watchdog management | Your PC |
+| `ecosystem.cloud.config.js` | Cloud orchestrator management | Oracle VM |
+
+**Local Architecture:**
+```
+PM2 → watchdog.py → orchestrator.py → watchers → Claude Code
+```
+
+**Cloud Architecture:**
+```
+PM2 → cloud_orchestrator.py → cloud_watchers (built-in)
+```
+
+**Setup:**
+```bash
+# Install PM2
+npm install -g pm2
+
+# Local (Your PC)
+cd ai_employee_scripts
+pm2 start ecosystem.local.config.js
+pm2 save
+pm2 startup
+
+# Cloud (Oracle VM)
+cd ai_employee_scripts
+pm2 start ecosystem.cloud.config.js
+pm2 save
+pm2 startup
+```
+
+**Status:** ✅ **Complete and Tested**
+- PM2 configs created for local and cloud
+- UV Python integration working
+- File detection and processing verified
+- Auto-restart on failure enabled
+
+**Testing Results (2026-03-09):**
+- ✅ PM2 starts watchdog via UV's virtual environment Python
+- ✅ Watchdog spawns orchestrator subprocess
+- ✅ Orchestrator detects new files in Needs_Action/
+- ✅ Orchestrator calls `claude code /process-file`
+- ✅ Files processed and moved to Done/
+- ✅ PM2 captures watchdog logs
+- ✅ Orchestrator logs to Vault/Logs/
+
+**Note on Logs:**
+- **Watchdog logs** → PM2 (`pm2 logs ai-employee-local`)
+- **Orchestrator logs** → Vault/Logs/`YYYY-MM-DD_orchestrator.log`
+- **Claude Code output** → Orchestrator log (not PM2)
 
 ---
 
-## New Features Added (2026-02-24)
+## Vault Sync Automation (Platinum Tier)
 
-### Meta (Facebook & Instagram) Integration ✅
+**Purpose:** Keep local and cloud vaults in sync via git push/pull.
+
+**File:** `ai_employee_scripts/vault_sync.py`
+
+**Features:**
+- Pulls latest changes from GitHub
+- Detects local changes (files modified/added)
+- Commits with timestamp
+- Pushes to GitHub
+- Runs every 5 minutes via cron
+
+**Usage:**
+```bash
+# Dry run (test without changes)
+python3 vault_sync.py --dry-run
+
+# Run once
+python3 vault_sync.py
+
+# Run as daemon
+python3 vault_sync.py --daemon
+```
+
+**Cron Setup (both local and cloud):**
+```bash
+*/5 * * * * cd "/path/to/ai_employee_scripts" && uv run python vault_sync.py
+```
+
+**Status:** ⏳ **Script Ready, Deployment Pending**
+- vault_sync.py created with dry-run mode
+- Tested successfully in dry-run mode
+- Needs cron setup on both local and cloud VM
+
+---
+
+## Deduplication System (Platinum Tier)
+
+**Purpose:** Prevent duplicate email processing when both local and cloud watchers are running simultaneously.
+
+### Problem Solved
+
+```
+Before: Both watchers could process the same email within the 5-minute git sync gap
+After: Real-time API coordination prevents duplicates instantly
+```
+
+### Two-Layer Architecture
+
+| Layer | Method | Purpose |
+|-------|--------|---------|
+| **Layer 1** | JSON file (git synced) | Persistent backup, survives reboots |
+| **Layer 2** | API + SQLite (real-time) | Instant coordination between watchers |
+
+### Components Created
+
+| File | Purpose |
+|------|---------|
+| `shared/dedup_client.py` | Client class for API communication |
+| `cloud/api_server.py` | Flask API + SQLite for processed emails |
+| `cloud_data/` | SQLite database storage |
+
+### API Endpoints
+
+| Endpoint | Method | Purpose |
+|----------|--------|---------|
+| `/health` | GET | Health check |
+| `/register` | POST | Register processed email ID |
+| `/check?id=xxx` | GET | Check if email already processed |
+| `/stats` | GET | Get statistics (by source, total, recent) |
+| `/list` | GET | List recent processed emails |
+
+### How It Works
+
+```
+LOCAL WATCHER                              CLOUD WATCHER
+     │                                          │
+     ├→ Check JSON (local)                      ├→ Check SQLite via API
+     ├→ Check API (cloud)                       ├→ Check JSON (git synced)
+     ├→ Process email                           ├→ Process email
+     ├→ Save to JSON                            ├→ Save to JSON
+     └→ POST to API immediately                 └→ POST to API immediately
+              ↓                                          ↓
+         Flask API + SQLite (single source of truth)
+```
+
+### Configuration
+
+**Environment Variables:**
+```bash
+DEDUP_API_URL=http://localhost:5000  # URL of the API server
+DEDUP_API_KEY=your-secret-key        # Optional API key
+DEDUP_API_PORT=5000                  # Port for API server
+```
+
+**PM2 Integration:**
+Both `ecosystem.local.config.js` and `ecosystem.cloud.config.js` now include:
+- `ai-employee-api` - Flask API on port 5000
+- Environment variable `DEDUP_API_URL` passed to watchers
+
+### Testing Results (2026-03-15)
+
+| Test | Result |
+|------|--------|
+| API starts successfully | ✅ |
+| Local watcher uses API | ✅ |
+| Cloud watcher uses API | ✅ |
+| Stats endpoint works | ✅ |
+| Deduplication verified | ✅ |
+
+**Stats after testing:**
+```json
+{"by_source":{"cloud":1,"local":3},"recent_24h":4,"total":4}
+```
+
+### Security
+
+- Optional API key authentication (`X-API-Key` header)
+- SQLite database not synced via git (in `cloud_data/`)
+- Graceful fallback if API is down (uses JSON only)
+
+---
+
+## New Features Added (2026-02-24 to 2026-03-09)
+
+### Cloud Watchers Infrastructure ✅ (2026-03-09)
+**Folder:** `cloud_watchers/`
+- **base_cloud_watcher.py**: Base class with .env loading, absolute path resolution
+- **gmail_watcher.py**: Gmail watcher (reads GOOGLE_CREDENTIALS from .env)
+- **linkedin_watcher.py**: LinkedIn watcher (placeholder, mock mode)
+
+**Key Features:**
+- Same file format as local watchers for compatibility
+- Reads credentials from .env instead of credentials.json
+- Shared state via `Logs/gmail_processed_ids.json` (syncs via git)
+- Prevents duplicate email processing between local and cloud
+- Managed by cloud orchestrator (start, health check, restart)
+
+**Integration:**
+- Cloud orchestrator starts watchers as subprocesses
+- Health checks every 60 seconds
+- Auto-restart on failure
+
+### Cloud Agent Architecture ✅ (2026-03-08)
+**Folder:** `cloud/agent_definitions/`
+- **TriageAgent**: Routes tasks to specialists with handoffs
+- **EmailAgent**: Email processing specialist
+- **SocialAgent**: Social media specialist
+- **FinanceAgent**: Accounting specialist with Odoo MCP integration
+- **Models**: Shared data models for all agents
+
+**Key Features:**
+- OpenAI Agents SDK integration
+- Guardrails (input/output)
+- Handoffs between agents
+- Per-request MCP lifecycle
+- Lazy import pattern for MCPServerStdio
+
+### Odoo Cloud MCP Server ✅ (2026-03-08)
+**File:** `cloud/mcp_servers/odoo_server.py`
+- Read-only + draft-only access for cloud security
+- 6 tools, all tested and passing
+- Proper journal and account handling
+- Error handling and logging
+
+### MCP Integration Guide ✅ (2026-03-08)
+**File:** `MCP_INTEGRATION_GUIDE.md`
+- Complete guide for integrating MCP with OpenAI Agents SDK
+- Per-request lifecycle pattern
+- Multi-agent handoff pattern
+- Troubleshooting tips
+- Common pitfalls and solutions
+
+### Meta (Facebook & Instagram) Integration ✅ (2026-02-24)
 **MCP Server:** `meta_mcp.py`
 - `post_to_facebook(text)` - Post to Facebook Page
 - `post_to_instagram(caption, image_url)` - Post to Instagram (requires image)
@@ -220,7 +603,7 @@ PATH=/home/adev/.local/bin:/usr/local/bin:/usr/bin:/bin
 - Facebook Page: Degital-fte2 (ID: 1052364351286139)
 - Instagram: @ahmedsaeedc (ID: 17841480660037521)
 
-### Twitter (X) Integration ⚠️
+### Twitter (X) Integration ⚠️ (2026-02-24)
 **MCP Server:** `twitter_mcp.py`
 - `post_tweet(text)` - Post tweet (max 280 chars)
 - `post_business_update(update_type, details)` - Formatted business tweets
@@ -257,13 +640,6 @@ PATH=/home/adev/.local/bin:/usr/local/bin:/usr/bin:/bin
 - Week-over-week comparisons
 - Action items and priorities
 
-### Updated Skills
-- **`execute-approved`**: Now handles Meta posts (Facebook/Instagram) + Twitter posts
-- **`weekly-audit`**: Added auto-email delivery via Gmail MCP
-- Added platform selection logic
-- Added image URL handling for Instagram
-- Added Dashboard logging for all platforms
-
 ### Ralph Wiggum Stop Hook ✅ (2026-02-26)
 **Purpose**: Prevents Claude from stopping while tasks remain in `Needs_Action/`
 
@@ -279,23 +655,6 @@ PATH=/home/adev/.local/bin:/usr/local/bin:/usr/bin:/bin
 4. **If empty**: Allows normal exit
 5. **Infinite loop protection**: Checks `stop_hook_active` flag
 6. **Emergency bypass**: Create `stop_ralph` file in vault to force exit
-
-**Example Output When Blocking:**
-```
-STOP BLOCKED by Ralph Wiggum Hook
-There are still 3 unprocessed files in Needs_Action/:
-  - TASK_email_john_2026-02-26.md
-  - TASK_invoice_acme_2026-02-25.md
-  - TASK_linkedin_message_2026-02-26.md
-
-Process each file using /process-file skill,
-move completed tasks to Done/. Do not stop until
-Needs_Action/ is empty.
-
-To bypass: Create 'stop_ralph' file in vault.
-```
-
-**Gold Tier Requirement**: ✅ Complete
 
 ---
 
@@ -319,39 +678,16 @@ To bypass: Create 'stop_ralph' file in vault.
 | Instagram | `meta-posting` | `meta-api` | 3 AM |
 | Twitter/X | `twitter-posting` | `twitter-api` | 4 AM |
 
-**Daily Workflow:**
-1. Cron generates posts overnight
-2. All 3 posts ready in `Pending_Approval/` in morning
-3. Review, add Instagram images, select platforms
-4. Move to `Approved/`
-5. Auto-post to all selected platforms
-
-**Weekly Workflow:**
-1. Monday 6 AM - CEO briefing auto-generated
-2. Briefing emailed to your inbox
-3. Includes full week's financial + operational summary
-
-### 3. Duplicate Prevention
-- All posting skills check `Content_To_Post/posted/`
-- Avoids repeating exact same post/angle
-- Can post on same topics with different perspectives
-
-### 4. Human-in-the-Loop (HITL)
-```
-Watcher → Needs_Action → AI processes → Pending_Approval
-    ↓
-Human reviews → Approved → execute-approved → MCP → Done
-```
-
-### 5. Multi-MCP Architecture
+### 3. Multi-MCP Architecture
 - **Gmail MCP**: Email sending/drafting/searching
 - **LinkedIn API MCP**: Official API posting
 - **LinkedIn MCP**: Playwright-based messaging
-- **Odoo MCP**: Accounting integration via JSON-RPC
+- **Odoo MCP (Local)**: Accounting integration via JSON-RPC
+- **Odoo MCP (Cloud)**: Read-only + draft-only for cloud agents
 - **Meta MCP**: Facebook + Instagram posting
 - **Twitter MCP**: Twitter/X posting
 
-### 6. Odoo Accounting Integration
+### 4. Odoo Accounting Integration
 - **JSON-RPC**: Direct API integration (no Docker needed)
 - **Skills**: `/create-invoice`, `/check-accounting`, `/weekly-audit`
 - **HITL Workflow**: Draft → Approve → Post invoice
@@ -378,6 +714,7 @@ dependencies = [
     "fastmcp>=0.1.0",
     "odoorpc>=0.10.0",
     "tweepy>=4.16.0",              # Twitter API
+    "openai-agents>=0.1.0",        # OpenAI Agents SDK (Cloud)
 ]
 ```
 
@@ -413,6 +750,9 @@ X_API_KEY=
 X_API_SECRET=
 X_ACCESS_TOKEN=
 X_ACCESS_TOKEN_SECRET=
+
+# OpenAI (for tracing cloud agents)
+OPENAI_API_KEY=                     # Optional, for tracing
 ```
 
 ---
@@ -421,60 +761,44 @@ X_ACCESS_TOKEN_SECRET=
 
 | Metric | Before | Now |
 |--------|--------|-----|
-| Watcher Scripts | 3 | 3 |
-| MCP Servers | 4 | **6** |
-| Agent Skills | 17 | **18** |
-| Cron Jobs | 1 | **4** |
-| Social Platforms | 1 (LinkedIn) | **4** (LinkedIn, Facebook, Instagram, Twitter) |
-| Posting Skills | 1 | **4** |
+| Local Watcher Scripts | 3 | 3 |
+| Cloud Watcher Scripts | 0 | **2** (Gmail, LinkedIn) |
+| MCP Servers | 6 | **7** (+cloud Odoo) |
+| Agent Skills | 18 | 18 |
+| Cloud Agents | 0 | **5** (Triage + 4 specialists) |
+| Cron Jobs | 4 | 4 |
+| Social Platforms | 4 (LinkedIn, Facebook, Instagram, Twitter) | 4 |
+| Posting Skills | 4 | 4 |
+| PM2 Configs | 0 | **2** (local, cloud) |
 
 ---
 
 ## Quick Start
 
-### Generate LinkedIn Post
+### Local Agent Skills
 ```bash
+# Generate social posts
 claude code -p "/linkedin-posting"
-```
-
-### Generate Meta Post (Facebook/Instagram)
-```bash
 claude code -p "/meta-posting"
-# Review in Pending_Approval/
-# Add Instagram image URL in Human Section
-# Select platforms (Facebook/Instagram/Both)
-# Move to Approved/
-```
-
-### Generate Twitter Post
-```bash
 claude code -p "/twitter-posting"
-```
 
-### Generate Weekly CEO Briefing
-```bash
+# Generate CEO Briefing
 claude code -p "/weekly-audit"
-# Automatically emailed to you
-```
 
-### Check Accounting
-```bash
+# Accounting
 claude code -p "/check-accounting"
-```
-
-### Create Invoice
-```bash
 claude code -p "/create-invoice"
-```
 
-### Execute Approved Actions
-```bash
+# Task management
+claude code -p "/check-tasks"
+claude code -p "/process-file"
 claude code -p "/execute-approved"
 ```
 
-### Check Cron Logs
+### Cloud Orchestrator
 ```bash
-tail -f ~/ai-employee/AI_Employee_Vault/Logs/cron.log
+cd ai_employee_scripts
+uv run python cloud/orchestrator.py
 ```
 
 ---
@@ -495,19 +819,23 @@ tail -f ~/ai-employee/AI_Employee_Vault/Logs/cron.log
 
 ---
 
-## Known Issues & Workarounds
+## Known Issues & Solutions
 
 ### Twitter/X API Credits
 **Issue:** `402 Payment Required` when posting to Twitter
 **Cause:** X API account lacks credits
-**Workaround:** Add credits at https://developer.x.com
+**Solution:** Add credits at https://developer.x.com
 **Impact:** All functionality works correctly - only payment is external
-**Hackathon Note:** This is an API limitation, not a code issue. The implementation is complete and functional.
 
 ### Instagram Image Selection
 **Issue:** AI cannot see images to select appropriate ones
 **Solution:** Human provides image URLs in approval file
 **Alternative:** Use curated branded images for consistency
+
+### Odoo MCP Configuration (Cloud)
+**Issue:** Odoo requires explicit journal_id and account_id
+**Solution:** Auto-find Sales Journal and use journal's default_account_id
+**Status:** ✅ Fixed in `cloud/mcp_servers/odoo_server.py`
 
 ---
 
@@ -522,7 +850,10 @@ tail -f ~/ai-employee/AI_Employee_Vault/Logs/cron.log
 | Hooks | `~/ai-employee/.claude/hooks/` |
 | Cron Scripts | `~/ai-employee/ai_employee_scripts/scripts/` |
 | Cron Log | `~/ai-employee/AI_Employee_Vault/Logs/cron.log` |
-| MCP Servers | `~/ai-employee/ai_employee_scripts/mcp_servers/` |
+| MCP Servers (Local) | `~/ai-employee/ai_employee_scripts/mcp_servers/` |
+| Cloud Agents | `~/ai-employee/ai_employee_scripts/cloud/` |
+| Cloud MCP | `~/ai-employee/ai_employee_scripts/cloud/mcp_servers/` |
+| MCP Integration Guide | `~/ai-employee/MCP_INTEGRATION_GUIDE.md` |
 
 ---
 
@@ -537,19 +868,31 @@ tail -f ~/ai-employee/AI_Employee_Vault/Logs/cron.log
 - **Human Oversight**: All posts require approval before publishing
 - **CEO Briefing**: Auto-emailed every Monday morning
 - **Ralph Wiggum Hook**: Prevents stopping while tasks remain in Needs_Action/
+- **Cloud Agents**: OpenAI Agents SDK with per-request MCP lifecycle
+- **PM2 Integration**: UV Python + PM2 working for local and cloud
+- **Deduplication**: Two-layer (JSON + API) prevents duplicate email processing
+- **Platinum Tier**: ~80% complete (code ready, deployment pending)
 
 ---
 
-## Gold Tier Remaining Items
+## Platinum Tier Remaining Items
 
-| Item | Status | Effort |
+| Item | Status | Weight |
 |------|--------|--------|
-| Error recovery / graceful degradation | ✅ | Complete |
-| Documentation (README, architecture) | ❌ | Low |
+| Cloud watchers (Gmail) | ✅ | Complete |
+| Cloud watchers (LinkedIn) | ⏳ | Placeholder only |
+| Shared state (Git sync) | ✅ | Complete |
+| PM2 configs (local + cloud) | ✅ | Complete |
+| Vault sync script | ✅ | Complete |
+| **Deduplication API** | ✅ | **Complete** |
+| Cloud VM deployment | ❌ | Pending |
+| Vault sync cron setup | ❌ | Pending |
+| Odoo Cloud deployment | ❌ | **15%** |
+| Platinum demo test | ❌ | **5%** |
 
-**Estimated Gold Completion: ~95%** (only documentation remaining - all features complete)
+**Remaining: ~20%** (Deployment tasks only)
 
 ---
 
-*Generated: 2026-02-26*
-*Tier: Silver → Gold (In Progress)*
+*Generated: 2026-03-15*
+*Tier: Gold ✅ Complete → Platinum ⏳ In Progress (~80%)*

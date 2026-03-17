@@ -82,7 +82,7 @@ ERROR_CONFIGS: Dict[ErrorCategory, ErrorConfig] = {
         alert_human=True,
         pause_operations=False,
         quarantine=False
-    },
+    ),
 }
 
 

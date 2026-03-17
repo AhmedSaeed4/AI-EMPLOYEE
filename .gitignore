@@ -5,10 +5,13 @@
 credentials.json
 token.json
 *.pickle
+*.pem
 
 # Environment variables
 .env
 .env.local
+.env.cloud
+**/.env
 
 # Python
 __pycache__/
@@ -53,3 +56,13 @@ ai_employee_scripts/token_gmail_watcher.json
 
 # Chat/conversation logs
 chat.txt
+
+# Vault Sync - Emergency stop files
+stop_ralph
+force_stop
+
+# PM2 logs
+pm2-*.log
+
+# UV lock file (optional - uncomment if not needed in cloud)
+# uv.lock

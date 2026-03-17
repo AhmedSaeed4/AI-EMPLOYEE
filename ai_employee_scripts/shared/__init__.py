@@ -1,7 +1,7 @@
 """
 Shared utilities for AI Employee scripts.
 
-Includes error handling, retry logic, and common utilities.
+Includes error handling, retry logic, deduplication, and common utilities.
 """
 
 from .error_handler import (
@@ -24,6 +24,8 @@ from .retry_handler import (
     calculate_backoff,
 )
 
+from .dedup_client import DedupClient
+
 __all__ = [
     # Error Handler exports
     'ErrorCategory',
@@ -41,4 +43,6 @@ __all__ = [
     'with_async_retry',
     'RetryContext',
     'calculate_backoff',
+    # Dedup Client exports
+    'DedupClient',
 ]

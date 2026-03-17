@@ -19,9 +19,11 @@ Welcome to your Personal AI Employee dashboard. This is the central hub where Cl
 
 ## CEO Briefings
 
-Latest: [[2026-03-09_Weekly_Briefing]] (Revenue: $0 | Profit: $0 | Unpaid: $799.99)
+Latest: [[2026-03-16_Weekly_Briefing]] (Revenue: N/A - Odoo offline | Outstanding: $799.99)
 
-Previous: [[2026-02-22_Weekly_Briefing]] (Revenue: $500 | Profit: $500 | Unpaid: $500)
+Previous: [[2026-03-09_Weekly_Briefing]] (Revenue: $0 | Profit: $0 | Unpaid: $799.99)
+
+Historical: [[2026-02-22_Weekly_Briefing]] (Revenue: $500 | Profit: $500 | Unpaid: $500)
 
 ---
 
@@ -100,4 +102,4 @@ Previous: [[2026-02-22_Weekly_Briefing]] (Revenue: $500 | Profit: $500 | Unpaid:
 
 ---
 
-*Last updated: 2026-03-15 12:30 (3 tasks processed)*
+*Last updated: 2026-03-16 (Weekly Briefing generated - Odoo offline)*
