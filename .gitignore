@@ -56,7 +56,7 @@ ai_employee_scripts/token_gmail_watcher.json
 
 # Chat/conversation logs
 chat.txt
-
+chat-2.txt
 # Vault Sync - Emergency stop files
 stop_ralph
 force_stop
