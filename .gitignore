@@ -64,5 +64,8 @@ force_stop
 # PM2 logs
 pm2-*.log
 
+# Demo scripts (local use)
+demo_cloud.sh
+
 # UV lock file (optional - uncomment if not needed in cloud)
 # uv.lock
