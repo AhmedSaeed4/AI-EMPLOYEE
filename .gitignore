@@ -58,6 +58,7 @@ ai_employee_scripts/token_gmail_watcher.json
 # Chat/conversation logs
 chat.txt
 chat-2.txt
+chat-3.txt
 AWS_DEPLOYMENT_GUIDE.md
 # Vault Sync - Emergency stop files
 stop_ralph
