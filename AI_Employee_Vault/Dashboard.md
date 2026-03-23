@@ -8,18 +8,18 @@ Welcome to your Personal AI Employee dashboard. This is the central hub where Cl
 
 | Metric | Value | Last Updated |
 |--------|-------|--------------|
-| Pending Tasks | 0 | 2026-03-15 12:30 |
-| Pending Approvals | 20 | 2026-03-09 06:00 |
-| Completed Today | 7 | 2026-03-15 12:30 |
-| Active Watchers | Cloud Orchestrator | ✅ |
-| Weekly Revenue | $0.00 | 2026-03-09 |
-| Outstanding Invoices | $799.99 | 2026-03-09 |
+| Pending Tasks | 0 | 2026-03-23 12:00 |
+| Pending Approvals | 11 | 2026-03-23 12:00 |
+| Completed Today | 0 | 2026-03-23 12:00 |
+| Active Watchers | None | ⚠️ All stopped |
+| Weekly Revenue | N/A | 2026-03-23 (Odoo offline) |
+| Outstanding Invoices | $799.99 | 2026-03-09 (last known) |
 
 ---
 
 ## CEO Briefings
 
-Latest: [[2026-03-16_Weekly_Briefing]] (Revenue: N/A - Odoo offline | Outstanding: $799.99)
+Latest: [[2026-03-23_Weekly_Briefing]] (Revenue: N/A - Odoo offline | Outstanding: $799.99 last known)
 
 Previous: [[2026-03-09_Weekly_Briefing]] (Revenue: $0 | Profit: $0 | Unpaid: $799.99)
 
@@ -102,4 +102,4 @@ Historical: [[2026-02-22_Weekly_Briefing]] (Revenue: $500 | Profit: $500 | Unpai
 
 ---
 
-*Last updated: 2026-03-16 (Weekly Briefing generated - Odoo offline)*
+*Last updated: 2026-03-23 (Weekly Briefing generated - Odoo offline)*
