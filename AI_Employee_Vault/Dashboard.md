@@ -8,12 +8,12 @@ Welcome to your Personal AI Employee dashboard. This is the central hub where Cl
 
 | Metric | Value | Last Updated |
 |--------|-------|--------------|
-| Pending Tasks | 0 | 2026-03-23 12:00 |
-| Pending Approvals | 11 | 2026-03-23 12:00 |
-| Completed Today | 0 | 2026-03-23 12:00 |
-| Active Watchers | None | ⚠️ All stopped |
-| Weekly Revenue | N/A | 2026-03-23 (Odoo offline) |
-| Outstanding Invoices | $799.99 | 2026-03-09 (last known) |
+| Pending Tasks | 0 | 2026-03-30 12:00 |
+| Pending Approvals | 27 | 2026-03-30 12:00 |
+| Completed Today | 0 | 2026-03-30 12:00 |
+| Active Watchers | None | All stopped |
+| Weekly Revenue | N/A | 2026-03-30 (Odoo offline - wk 2) |
+| Outstanding Invoices | $799.99 | 2026-03-09 (last known, 37+ days) |
 
 ---
 
