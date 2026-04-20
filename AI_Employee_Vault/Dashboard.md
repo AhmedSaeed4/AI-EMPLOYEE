@@ -8,22 +8,22 @@ Welcome to your Personal AI Employee dashboard. This is the central hub where Cl
 
 | Metric | Value | Last Updated |
 |--------|-------|--------------|
-| Pending Tasks | 0 | 2026-03-30 12:00 |
-| Pending Approvals | 27 | 2026-03-30 12:00 |
-| Completed Today | 0 | 2026-03-30 12:00 |
-| Active Watchers | None | All stopped |
-| Weekly Revenue | N/A | 2026-03-30 (Odoo offline - wk 2) |
-| Outstanding Invoices | $799.99 | 2026-03-09 (last known, 37+ days) |
+| Pending Tasks | 0 | 2026-04-20 12:00 |
+| Pending Approvals | 0 | 2026-04-20 (cleared from 27!) |
+| Completed Today | 0 | 2026-04-20 12:00 |
+| Active Watchers | None | All stopped since Mar 18 |
+| Weekly Revenue | N/A | 2026-04-20 (Odoo offline - wk 4+) |
+| Outstanding Invoices | $799.99 | 2026-03-09 (last known, 42+ days) |
 
 ---
 
 ## CEO Briefings
 
-Latest: [[2026-03-30_Weekly_Briefing]] (Revenue: N/A - Odoo offline wk2 | Outstanding: $799.99 (37+ days) | Approvals: 27 (+146%) | Posts: 0)
+Latest: [[2026-04-20_Weekly_Briefing]] (Posts: 8 | Approvals: 0 (cleared!) | Odoo: offline wk4+ | Outstanding: $799.99 (42+ days))
 
-Previous: [[2026-03-23_Weekly_Briefing]] (Revenue: N/A - Odoo offline | Outstanding: $799.99 last known)
+Previous: [[2026-03-30_Weekly_Briefing]] (Revenue: N/A - Odoo offline wk2 | Outstanding: $799.99 (37+ days) | Approvals: 27 (+146%) | Posts: 0)
 
-Historical: [[2026-03-09_Weekly_Briefing]] (Revenue: $0 | Profit: $0 | Unpaid: $799.99) | [[2026-02-22_Weekly_Briefing]] (Revenue: $500 | Profit: $500 | Unpaid: $500)
+Historical: [[2026-03-23_Weekly_Briefing]] | [[2026-03-09_Weekly_Briefing]] (Revenue: $0 | Profit: $0 | Unpaid: $799.99) | [[2026-02-22_Weekly_Briefing]] (Revenue: $500 | Profit: $500 | Unpaid: $500)
 
 ---
 
@@ -102,4 +102,4 @@ Historical: [[2026-03-09_Weekly_Briefing]] (Revenue: $0 | Profit: $0 | Unpaid: $
 
 ---
 
-*Last updated: 2026-03-30 (Weekly Briefing generated - Odoo offline week 2)*
+*Last updated: 2026-04-20 (Weekly Briefing generated - Approval backlog cleared, 8 posts published, Odoo offline wk4+)*
