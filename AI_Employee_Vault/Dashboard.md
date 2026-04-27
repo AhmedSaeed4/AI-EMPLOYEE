@@ -19,7 +19,9 @@ Welcome to your Personal AI Employee dashboard. This is the central hub where Cl
 
 ## CEO Briefings
 
-Latest: [[2026-04-20_Weekly_Briefing]] (Posts: 8 | Approvals: 0 (cleared!) | Odoo: offline wk4+ | Outstanding: $799.99 (42+ days))
+Latest: [[2026-04-27_Weekly_Briefing]] (Posts: 0 | Approvals: 96 backlog | Odoo: offline wk5+ | Outstanding: $799.99 (49+ days))
+
+Previous: [[2026-04-20_Weekly_Briefing]] (Posts: 8 | Approvals: 0 (cleared!) | Odoo: offline wk4+ | Outstanding: $799.99 (42+ days))
 
 Previous: [[2026-03-30_Weekly_Briefing]] (Revenue: N/A - Odoo offline wk2 | Outstanding: $799.99 (37+ days) | Approvals: 27 (+146%) | Posts: 0)
 
