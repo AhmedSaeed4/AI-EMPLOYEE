@@ -9,19 +9,19 @@ Welcome to your Personal AI Employee dashboard. This is the central hub where Cl
 | Metric | Value | Last Updated |
 |--------|-------|--------------|
 | Pending Tasks | 0 | 2026-05-04 06:00 |
-| Pending Approvals | 111 | 2026-05-04 (growing from 96!) |
+| Pending Approvals | 132 | 2026-05-18 (+19% from 111) |
 | Completed Today | 0 | 2026-05-04 06:00 |
-| Active Watchers | None | All stopped since Mar 18 |
-| Weekly Revenue | N/A | 2026-05-04 (Odoo offline - wk 6+) |
-| Outstanding Invoices | $799.99 | 2026-03-09 (last known, 56+ days) |
+| Active Watchers | None | All stopped since Mar 18 (9 weeks) |
+| Weekly Revenue | N/A | 2026-05-18 (Odoo offline - wk 7+) |
+| Outstanding Invoices | $799.99 | 2026-03-09 (last known, 70+ days) |
 
 ---
 
 ## CEO Briefings
 
-Latest: [[2026-05-04_Weekly_Briefing]] (Posts: 0 | Approvals: 111 (+16%) | Odoo: offline wk6+ | Outstanding: $799.99 (56+ days))
+Latest: [[2026-05-18_Weekly_Briefing]] (Posts: 0 | Approvals: 132 (+19%) | Odoo: offline wk7+ | Outstanding: $799.99 (70+ days))
 
-Previous: [[2026-04-27_Weekly_Briefing]] (Posts: 0 | Approvals: 96 backlog | Odoo: offline wk5+ | Outstanding: $799.99 (49+ days))
+Previous: [[2026-05-04_Weekly_Briefing]] (Posts: 0 | Approvals: 111 (+16%) | Odoo: offline wk6+ | Outstanding: $799.99 (56+ days))
 
 Previous: [[2026-04-20_Weekly_Briefing]] (Posts: 0 | Approvals: 96 | Odoo: offline wk4+ | Outstanding: $799.99 (42+ days))
 
@@ -106,4 +106,4 @@ Historical: [[2026-03-23_Weekly_Briefing]] | [[2026-03-09_Weekly_Briefing]] (Rev
 
 ---
 
-*Last updated: 2026-05-04 (Weekly Briefing generated - Approvals: 111 (+16%), 0 posts published, Odoo offline wk6+)*
+*Last updated: 2026-05-18 (Weekly Briefing generated - Approvals: 132 (+19%), 0 posts published, Odoo offline wk7+)*
