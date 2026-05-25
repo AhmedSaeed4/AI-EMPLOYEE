@@ -9,25 +9,23 @@ Welcome to your Personal AI Employee dashboard. This is the central hub where Cl
 | Metric | Value | Last Updated |
 |--------|-------|--------------|
 | Pending Tasks | 0 | 2026-05-04 06:00 |
-| Pending Approvals | 132 | 2026-05-18 (+19% from 111) |
-| Completed Today | 0 | 2026-05-04 06:00 |
-| Active Watchers | None | All stopped since Mar 18 (9 weeks) |
-| Weekly Revenue | N/A | 2026-05-18 (Odoo offline - wk 7+) |
-| Outstanding Invoices | $799.99 | 2026-03-09 (last known, 70+ days) |
+| Pending Approvals | 140 | 2026-05-25 (+6% from 132) |
+| Completed Today | 0 | 2026-05-25 |
+| Active Watchers | None | All stopped since Mar 18 (10 weeks) |
+| Weekly Revenue | N/A | 2026-05-25 (Odoo offline - wk 8+) |
+| Outstanding Invoices | $799.99 | 2026-03-09 (last known, 77+ days) |
 
 ---
 
 ## CEO Briefings
 
-Latest: [[2026-05-18_Weekly_Briefing]] (Posts: 0 | Approvals: 132 (+19%) | Odoo: offline wk7+ | Outstanding: $799.99 (70+ days))
+Latest: [[2026-05-25_Weekly_Briefing]] (Posts: 0 | Approvals: 140 (+6%) | Odoo: offline wk8+ | Outstanding: $799.99 (77+ days))
+
+Previous: [[2026-05-18_Weekly_Briefing]] (Posts: 0 | Approvals: 132 (+19%) | Odoo: offline wk7+ | Outstanding: $799.99 (70+ days))
 
 Previous: [[2026-05-04_Weekly_Briefing]] (Posts: 0 | Approvals: 111 (+16%) | Odoo: offline wk6+ | Outstanding: $799.99 (56+ days))
 
-Previous: [[2026-04-20_Weekly_Briefing]] (Posts: 0 | Approvals: 96 | Odoo: offline wk4+ | Outstanding: $799.99 (42+ days))
-
-Previous: [[2026-03-30_Weekly_Briefing]] (Revenue: N/A - Odoo offline wk2 | Outstanding: $799.99 (37+ days) | Approvals: 27 (+146%) | Posts: 0)
-
-Historical: [[2026-03-23_Weekly_Briefing]] | [[2026-03-09_Weekly_Briefing]] (Revenue: $0 | Profit: $0 | Unpaid: $799.99) | [[2026-02-22_Weekly_Briefing]] (Revenue: $500 | Profit: $500 | Unpaid: $500)
+Historical: [[2026-04-20_Weekly_Briefing]] | [[2026-03-30_Weekly_Briefing]] | [[2026-03-23_Weekly_Briefing]] | [[2026-03-09_Weekly_Briefing]] (Revenue: $0 | Profit: $0 | Unpaid: $799.99) | [[2026-02-22_Weekly_Briefing]] (Revenue: $500 | Profit: $500 | Unpaid: $500)
 
 ---
 
@@ -106,4 +104,4 @@ Historical: [[2026-03-23_Weekly_Briefing]] | [[2026-03-09_Weekly_Briefing]] (Rev
 
 ---
 
-*Last updated: 2026-05-18 (Weekly Briefing generated - Approvals: 132 (+19%), 0 posts published, Odoo offline wk7+)*
+*Last updated: 2026-05-25 (Weekly Briefing generated - Approvals: 140 (+6%), 0 posts published, Odoo offline wk8+)*
