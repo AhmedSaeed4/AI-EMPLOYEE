@@ -8,21 +8,23 @@ Welcome to your Personal AI Employee dashboard. This is the central hub where Cl
 
 | Metric | Value | Last Updated |
 |--------|-------|--------------|
-| Pending Tasks | 0 | 2026-07-13 |
-| Pending Approvals | 217 | 2026-07-13 (+17.9% from 184) |
-| Completed Today | 0 | 2026-07-13 |
-| Active Watchers | None | All stopped since Mar 18 (~17 weeks) |
-| Weekly Revenue | N/A | 2026-07-13 (Odoo offline - ~18 weeks) |
-| Outstanding Invoices | $799.99 | 2026-03-09 (last known, ~126 days, PAST 120-day write-off) |
-| Posts Queued | 218 | 2026-07-13 (33 generated last 2 wks) |
-| Last Published Post | ~138 days | Feb 25, 2026 |
-| Weekly Audit | ⚠️ 7/6 missed | 2026-07-13 (streak broken) |
+| Pending Tasks | 0 | 2026-07-27 |
+| Pending Approvals | 252 | 2026-07-27 (+5.9% from 238) |
+| Completed Today | 0 | 2026-07-27 |
+| Active Watchers | None | All stopped since Mar 18 (~19 weeks) |
+| Weekly Revenue | N/A | 2026-07-27 (Odoo offline - ~20 weeks) |
+| Outstanding Invoices | $799.99 | 2026-03-09 (last known, ~140 days, 20d PAST 120-day write-off) |
+| Posts Queued | 253 | 2026-07-27 (17 generated this wk) |
+| Last Published Post | ~152 days | Feb 25, 2026 |
+| Weekly Audit | ✅ 7/27 on-time | 2026-07-27 (3rd consecutive since 7/6 miss) |
 
 ---
 
 ## CEO Briefings
 
-Latest: [[2026-07-20_Weekly_Briefing]] (Posts: 0 | Approvals: 238 (+9.7%) | Odoo: offline ~19 wks | Outstanding: $799.99 (~133 days, **13d past write-off**) | ✅ 7/20 on-time, 2nd consecutive)
+Latest: [[2026-07-27_Weekly_Briefing]] (Posts: 0 | Approvals: 252 (+5.9%) | Odoo: offline ~20 wks | Outstanding: $799.99 (~140 days, **20d past write-off**) | ✅ 7/27 on-time, 3rd consecutive)
+
+Previous: [[2026-07-20_Weekly_Briefing]] (Posts: 0 | Approvals: 238 (+9.7%) | Odoo: offline ~19 wks | Outstanding: $799.99 (~133 days, **13d past write-off**) | ✅ 7/20 on-time, 2nd consecutive)
 
 Previous: [[2026-07-13_Weekly_Briefing]] (Posts: 0 | Approvals: 217 (+17.9%) | Odoo: offline ~18 wks | Outstanding: $799.99 (~126 days, **PAST write-off**) | ⚠️ 7/6 audit missed)
 
@@ -110,13 +112,13 @@ Historical: [[2026-04-20_Weekly_Briefing]] | [[2026-03-30_Weekly_Briefing]] | [[
 |-----------|--------|
 | Obsidian Vault | ✅ Active |
 | Claude Code | ✅ Connected & Read/Write Verified |
-| File System Watcher | ⚠️ Inactive (~17 weeks, since Mar 18) |
-| Gmail Watcher | ⚠️ Inactive (~17 weeks) |
-| LinkedIn Watcher | ⚠️ Inactive (~17 weeks) |
+| File System Watcher | ⚠️ Inactive (~19 weeks, since Mar 18) |
+| Gmail Watcher | ⚠️ Inactive (~19 weeks) |
+| LinkedIn Watcher | ⚠️ Inactive (~19 weeks) |
 | Vault Sync | ✅ Active (every 5 min) |
-| Git Auto-Sync | ✅ Active (hourly) |
-| Weekly Audit Cron | ⚠️ 7/6 missed, 7/13 ran |
-| MCP Servers | ⚠️ Odoo offline (~18 wks); LinkedIn, LinkedIn API, Meta, Twitter available; Gmail not connected this session |
+| Git Auto-Sync | ⚠️ Last commit 7/25 (~2-day gap; was hourly) — check needed |
+| Weekly Audit Cron | ✅ 7/27 on-time (3rd consecutive since 7/6 miss) |
+| MCP Servers | ⚠️ Odoo offline (~20 wks); LinkedIn, LinkedIn API, Meta, Twitter available; Gmail not connected this session |
 
 ---
 
@@ -124,7 +126,8 @@ Historical: [[2026-04-20_Weekly_Briefing]] | [[2026-03-30_Weekly_Briefing]] | [[
 
 - [[Company_Handbook]] - Rules and guidelines for your AI Employee
 - [[Business_Goals]] - Track your objectives and metrics (add for Silver+)
+- [[2026-07-27_Weekly_Briefing]] - Latest CEO Weekly Briefing
 
 ---
 
-*Last updated: 2026-07-20 (Weekly Briefing generated - ✅ 7/20 audit on-time, 2nd consecutive since 7/6 miss | Approvals: 238 (+9.7%, +21), 0 posts published, 21 generated this wk, Odoo offline ~19 wks, $799.99 ~133 days overdue — 13d past 120-day write-off)*
+*Last updated: 2026-07-27 (Weekly Briefing generated - ✅ 7/27 audit on-time, 3rd consecutive since 7/6 miss | Approvals: 252 (+5.9%, +14), 0 posts published, 17 generated this wk, Odoo offline ~20 wks, $799.99 ~140 days overdue — 20d past 120-day write-off | ⚠️ Git auto-sync stalled ~2d)*
