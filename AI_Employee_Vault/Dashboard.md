@@ -8,21 +8,23 @@ Welcome to your Personal AI Employee dashboard. This is the central hub where Cl
 
 | Metric | Value | Last Updated |
 |--------|-------|--------------|
-| Pending Tasks | 0 | 2026-08-03 |
-| Pending Approvals | 266 | 2026-08-03 (+5.6% from 252) |
-| Completed Today | 0 | 2026-08-03 |
-| Active Watchers | None | All stopped since Mar 18 (~20 weeks) |
-| Weekly Revenue | N/A | 2026-08-03 (Odoo offline - ~21 weeks) |
-| Outstanding Invoices | $799.99 | 2026-03-09 (last known, ~147 days, 27d PAST 120-day write-off) |
-| Posts Queued | 267 | 2026-08-03 (14 generated this wk) |
-| Last Published Post | ~159 days | Feb 25, 2026 |
-| Weekly Audit | ✅ 8/3 on-time | 2026-08-03 (4th consecutive since 7/6 miss) |
+| Pending Tasks | 0 | 2026-08-10 |
+| Pending Approvals | 282 | 2026-08-10 (+6.0% from 266) |
+| Completed Today | 0 | 2026-08-10 |
+| Active Watchers | None | All stopped since Mar 18 (~21 weeks) |
+| Weekly Revenue | N/A | 2026-08-10 (Odoo offline - ~22 weeks) |
+| Outstanding Invoices | $799.99 | 2026-03-09 (last known, ~154 days, 34d PAST 120-day write-off) |
+| Posts Queued | 283 | 2026-08-10 (16 generated this wk) |
+| Last Published Post | ~166 days | Feb 25, 2026 |
+| Weekly Audit | ✅ 8/10 on-time | 2026-08-10 (5th consecutive since 7/6 miss) |
 
 ---
 
 ## CEO Briefings
 
-Latest: [[2026-08-03_Weekly_Briefing]] (Posts: 0 | Approvals: 266 (+5.6%) | Odoo: offline ~21 wks | Outstanding: $799.99 (~147 days, **27d past write-off**) | ✅ 8/3 on-time, 4th consecutive | 🟢 Git auto-sync resumed)
+Latest: [[2026-08-10_Weekly_Briefing]] (Posts: 0 | Approvals: 282 (+6.0%) | Odoo: offline ~22 wks | Outstanding: $799.99 (~154 days, **34d past write-off**) | ✅ 8/10 on-time, 5th consecutive | 🟢 Git auto-sync stable)
+
+Previous: [[2026-08-03_Weekly_Briefing]] (Posts: 0 | Approvals: 266 (+5.6%) | Odoo: offline ~21 wks | Outstanding: $799.99 (~147 days, **27d past write-off**) | ✅ 8/3 on-time, 4th consecutive | 🟢 Git auto-sync resumed)
 
 Previous: [[2026-07-27_Weekly_Briefing]] (Posts: 0 | Approvals: 252 (+5.9%) | Odoo: offline ~20 wks | Outstanding: $799.99 (~140 days, **20d past write-off**) | ✅ 7/27 on-time, 3rd consecutive)
 
@@ -48,6 +50,7 @@ Historical: [[2026-04-20_Weekly_Briefing]] | [[2026-03-30_Weekly_Briefing]] | [[
 
 ## Recent Activity
 
+- [2026-08-10 06:00] 📊 **Weekly CEO Briefing Generated** - 2026-08-10_Weekly_Briefing.md. ✅ **Audit cron fired on-time (5th consecutive run since the 7/6 miss — monitoring streak holds).** 🟢 **Git auto-sync stable** (hourly commits continued all week, last commit 8/10 04:05). Approvals: 282 (+6.0%, +16), 0 posts published, 16 generated this week (~2.3/day, up from ~2.0), Odoo offline ~22 wks, $799.99 now ~154 days overdue (**~34 days past the 120-day write-off mark**, flagged Critical for 6 consecutive reports). Backlog crosses ~300 within ~2 weeks at current rate. ~166 days since last post. Email not sent (Gmail MCP not connected).
 - [2026-08-03 06:00] 📊 **Weekly CEO Briefing Generated** - 2026-08-03_Weekly_Briefing.md. ✅ **Audit cron fired on-time (4th consecutive run since the 7/6 miss — monitoring streak holds).** 🟢 **Git auto-sync resumed hourly** (the 7/27 stall self-resolved; last commit 8/3 04:05). Approvals: 266 (+5.6%, +14), 0 posts published, 14 generated this week (~2.0/day, down from ~2.4), Odoo offline ~21 wks, $799.99 now ~147 days overdue (**27 days past the 120-day write-off mark**, flagged Critical for 5 consecutive reports). ~159 days since last post. Email not sent (Gmail MCP not connected).
 - [2026-07-20 06:00] 📊 **Weekly CEO Briefing Generated** - 2026-07-20_Weekly_Briefing.md. ✅ **Audit cron fired on-time (2nd consecutive run since the 7/6 miss — monitoring streak re-established).** Approvals: 238 (+9.7%, +21), 0 posts published, 21 generated this week (~3.0/day, up from ~2.4), Odoo offline ~19 wks, $799.99 now ~133 days overdue (**13 days past the 120-day write-off mark**, flagged Critical for 3 consecutive reports). ~145 days since last post. Email not sent (Gmail MCP not connected).
 - [2026-07-13 06:00] 📊 **Weekly CEO Briefing Generated** - 2026-07-13_Weekly_Briefing.md. ⚠️ **7/6 scheduled audit was MISSED — monitoring streak broken** (no briefing file, no cron entry; 6/29 had declared "3rd consecutive on-time"). This report covers a 14-day window (6/29→7/13). Approvals: 217 (+17.9%), 0 posts published, 33 generated over the window, Odoo offline ~18 wks, $799.99 now ~126 days overdue (**PAST the 120-day write-off mark**). Email not sent (Gmail MCP not connected).
