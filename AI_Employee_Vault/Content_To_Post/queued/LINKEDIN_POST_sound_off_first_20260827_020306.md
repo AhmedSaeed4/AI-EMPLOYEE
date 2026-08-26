@@ -25,11 +25,11 @@ That doesn't cost you engagement. It costs you delivery. Your message never arri
 If your video needs audio to make sense, you've made your best asset optional.
 
 ## Key Takeaways
-- Assume silence, then design for it deliberately
+- Assume silence; design for it deliberately
 - Headline goes on-screen in the first 2 seconds
 - Sound-on is a bonus tier, never the delivery mechanism
 
-We animate reels this way from frame one — so the story lands with or without audio.
+We animate reels this way from frame one — the story lands with or without audio.
 
 How often do *you* watch with sound on? Comment below 👇
 
