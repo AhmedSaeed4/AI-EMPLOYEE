@@ -1,10 +1,11 @@
 ---
 type: linkedin_post
-status: queued
+status: pending_approval
 created: 2026-08-28T02:04:15
 post_type: lead_generation
 topic: how to vet an AI automation partner before signing
 target_audience: Business owners actively evaluating AI automation or Digital FTE providers
+queued_copy: Content_To_Post/queued/LINKEDIN_POST_vetting_automation_partner_20260828_020415.md
 ---
 
 # 5 Questions to Ask Before You Hire an Automation Partner
@@ -33,3 +34,15 @@ Vendors who clear all five are rare. Those are the ones worth paying.
 Which one do you wish you'd asked before your last purchase? Let me know in the comments 👇
 
 #AI #Automation #DigitalFTE #SmallBusiness #BusinessGrowth
+
+---
+
+## Human Section
+**Status:** [ ] Approve for posting  [ ] Request changes  [ ] Reject
+
+**Your Instructions:**
+<!-- Write your feedback, edits, or instructions here -->
+
+**Action if Approved:** Move this file to Approved/ folder
+**Action if Changes:** Edit content above, then move to Approved/
+**Action if Reject:** Move to Rejected/ folder (queued copy will be removed too)
