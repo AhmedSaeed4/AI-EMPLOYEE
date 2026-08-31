@@ -8,22 +8,24 @@ Welcome to your Personal AI Employee dashboard. This is the central hub where Cl
 
 | Metric | Value | Last Updated |
 |--------|-------|--------------|
-| Pending Tasks | 0 | 2026-08-24 |
-| Pending Approvals | 313 | 2026-08-24 (+6.1% from 295 — crossed 300 as projected) |
-| Completed Today | 0 | 2026-08-24 |
+| Pending Tasks | 0 | 2026-08-31 |
+| Pending Approvals | 334 | 2026-08-31 (+6.7% from 313 — growth accelerating, +18 → +21) |
+| Completed Today | 0 | 2026-08-31 |
 | Active Watchers | None | All stopped since Mar 18 (~24 weeks) |
-| Weekly Revenue | N/A | 2026-08-24 (Odoo offline - ~24 weeks) |
-| Outstanding Invoices | $799.99 | 2026-03-09 (last known, ~168 days, 48d PAST 120-day write-off) |
-| Posts Queued | 314 | 2026-08-24 (18 generated this wk, +38% WoW) |
-| Last Published Post | ~180 days | Feb 25, 2026 |
-| Weekly Audit | ✅ 8/24 on-time | 2026-08-24 (7th consecutive since 7/6 miss) |
-| Content-Gen Reliability | ⚠️ 18/21 slots | 8/21 API 429 killed LinkedIn+Meta; 8/24 partial crash |
+| Weekly Revenue | N/A | 2026-08-31 (Odoo offline - ~25 weeks) |
+| Outstanding Invoices | $799.99 | 2026-03-09 (last known, ~175 days, 55d PAST 120-day write-off) |
+| Posts Queued | 334 | 2026-08-31 (21 generated this wk — perfect 21/21 slots) |
+| Last Published Post | ~187 days | Feb 25, 2026 |
+| Weekly Audit | ✅ 8/31 on-time | 2026-08-31 (8th consecutive since 7/6 miss) |
+| Content-Gen Reliability | ✅ 21/21 slots | First perfect week on record — zero failures |
 
 ---
 
 ## CEO Briefings
 
-Latest: [[2026-08-24_Weekly_Briefing]] (Posts: 0 | Approvals: **313** (+6.1%, crossed 300 as projected) | Odoo: offline ~24 wks | Outstanding: $799.99 (~168 days, **48d past write-off**) | ✅ 8/24 on-time, 7th consecutive | ⚠️ NEW: gen cron 18/21 slots — 8/21 API 429 double-failure, 8/24 partial crash)
+Latest: [[2026-08-31_Weekly_Briefing]] (Posts: 0 | Approvals: **334** (+6.7%, growth accelerating +18 → +21) | Odoo: offline ~25 wks | Outstanding: $799.99 (~175 days, **55d past write-off**) | ✅ 8/31 on-time, 8th consecutive | 🟢 **First perfect gen week: 21/21 slots**)
+
+Previous: [[2026-08-24_Weekly_Briefing]] (Posts: 0 | Approvals: **313** (+6.1%, crossed 300 as projected) | Odoo: offline ~24 wks | Outstanding: $799.99 (~168 days, **48d past write-off**) | ✅ 8/24 on-time, 7th consecutive | ⚠️ NEW: gen cron 18/21 slots — 8/21 API 429 double-failure, 8/24 partial crash)
 
 Previous: [[2026-08-17_Weekly_Briefing]] (Posts: 0 | Approvals: 295 (+4.6%) | Odoo: offline ~23 wks | Outstanding: $799.99 (~161 days, **41d past write-off**) | ✅ 8/17 on-time, 6th consecutive | ⚠️ NEW: generation cron gaps 8/12 + 8/15)
 
@@ -47,14 +49,13 @@ Previous: [[2026-05-25_Weekly_Briefing]] (Posts: 0 | Approvals: 140 (+6%) | Odoo
 
 Previous: [[2026-05-18_Weekly_Briefing]] (Posts: 0 | Approvals: 132 (+19%) | Odoo: offline wk7+ | Outstanding: $799.99 (70+ days))
 
-Previous: [[2026-05-04_Weekly_Briefing]] (Posts: 0 | Approvals: 111 (+16%) | Odoo: offline wk6+ | Outstanding: $799.99 (56+ days))
-
-Historical: [[2026-04-20_Weekly_Briefing]] | [[2026-03-30_Weekly_Briefing]] | [[2026-03-23_Weekly_Briefing]] | [[2026-03-09_Weekly_Briefing]] (Revenue: $0 | Profit: $0 | Unpaid: $799.99) | [[2026-02-22_Weekly_Briefing]] (Revenue: $500 | Profit: $500 | Unpaid: $500)
+Historical: [[2026-05-04_Weekly_Briefing]] (Approvals: 111) | [[2026-04-20_Weekly_Briefing]] | [[2026-03-30_Weekly_Briefing]] | [[2026-03-23_Weekly_Briefing]] | [[2026-03-09_Weekly_Briefing]] (Revenue: $0 | Profit: $0 | Unpaid: $799.99) | [[2026-02-22_Weekly_Briefing]] (Revenue: $500 | Profit: $500 | Unpaid: $500)
 
 ---
 
 ## Recent Activity
 
+- [2026-08-31 06:00] 📊 **Weekly CEO Briefing Generated** - 2026-08-31_Weekly_Briefing.md. ✅ **Audit cron fired on-time (8th consecutive run since the 7/6 miss — monitoring streak holds).** 🟢 **First perfect content-generation week on record: 21/21 slots** (7 LinkedIn, 7 Meta, 7 Twitter), zero errors, volume up 17% WoW (18 → 21, ~3.0/day). 📈 **Approvals: 334 (+6.7%, +21) — backlog growth is accelerating** (+18 → +21) and August is now the largest month in the queue (76 items); at +21/wk the queue crosses **400 during the week of Sept 21** (three weeks out, ahead of last week's "late October" projection). Zero processed again (Approved/ and Rejected/ still empty; oldest item Mar 18, ~166 days). Odoo offline ~25 wks (all 5 MCP calls verified refused this session), $799.99 now ~175 days overdue (**~55 days past the 120-day write-off mark**, flagged Critical for 9 consecutive reports). ~187 days since last published post. Minor: cron.log writes every line twice. Email not sent (Gmail MCP not connected).
 - [2026-08-24 06:00] 📊 **Weekly CEO Briefing Generated** - 2026-08-24_Weekly_Briefing.md. ✅ **Audit cron fired on-time (7th consecutive run since the 7/6 miss — monitoring streak holds).** ⚠️ **NEW: content-gen cron went 18/21 slots this week** — 8/21 lost LinkedIn + Meta to a Claude API `429 Usage limit reached` (reset 06:21); 8/24's LinkedIn run saved its post then crashed (`Connection lost mid-response`, artifact recovered); Twitter was a perfect 7/7. 🎯 **Last week's backlog projection confirmed:** approvals crossed 300 as forecast — now **313 (+6.1%, +18)** with zero processed (Approved/ and Rejected/ still empty; oldest items from Mar 18). Generation rebounded to 18 items (~2.6/day, up 38% WoW). Odoo offline ~24 wks (port verified refused), $799.99 now ~168 days overdue (**~48 days past the 120-day write-off mark**, flagged Critical for 8 consecutive reports). ~180 days since last published post. Email not sent (Gmail MCP not connected).
 - [2026-08-17 06:00] 📊 **Weekly CEO Briefing Generated** - 2026-08-17_Weekly_Briefing.md. ✅ **Audit cron fired on-time (6th consecutive run since the 7/6 miss — monitoring streak holds).** ⚠️ **NEW: content-generation cron missed 8/12 + 8/15 and ran partial on 8/16** (host likely off; git commits show matching gaps; no data loss). Approvals: 295 (+4.6%, +13), 0 posts published, 13 generated this week (~1.9/day, down from ~2.3/day), Odoo offline ~23 wks, $799.99 now ~161 days overdue (**~41 days past the 120-day write-off mark**, flagged Critical for 7 consecutive reports). Backlog crosses ~300 next week at current rate. ~173 days since last post. Email not sent (Gmail MCP not connected).
 - [2026-08-10 06:00] 📊 **Weekly CEO Briefing Generated** - 2026-08-10_Weekly_Briefing.md. ✅ **Audit cron fired on-time (5th consecutive run since the 7/6 miss — monitoring streak holds).** 🟢 **Git auto-sync stable** (hourly commits continued all week, last commit 8/10 04:05). Approvals: 282 (+6.0%, +16), 0 posts published, 16 generated this week (~2.3/day, up from ~2.0), Odoo offline ~22 wks, $799.99 now ~154 days overdue (**~34 days past the 120-day write-off mark**, flagged Critical for 6 consecutive reports). Backlog crosses ~300 within ~2 weeks at current rate. ~166 days since last post. Email not sent (Gmail MCP not connected).
@@ -129,10 +130,10 @@ Historical: [[2026-04-20_Weekly_Briefing]] | [[2026-03-30_Weekly_Briefing]] | [[
 | Gmail Watcher | ⚠️ Inactive (~24 weeks) |
 | LinkedIn Watcher | ⚠️ Inactive (~24 weeks) |
 | Vault Sync | ✅ Active (every 5 min) |
-| Git Auto-Sync | ✅ Healthy — daily commits all week; reduced counts on 8/19 + 8/21 mirror missed gen runs, not sync failures (last commit 8/24 04:05) |
-| Weekly Audit Cron | ✅ 8/24 on-time (7th consecutive since 7/6 miss) |
-| Content-Gen Cron | ⚠️ 18/21 slots — 8/19 Meta miss; 8/21 LinkedIn+Meta failed (API 429); 8/24 LinkedIn crashed post-save |
-| MCP Servers | ⚠️ Odoo offline (~24 wks, port verified refused); LinkedIn, LinkedIn API, Meta available; Twitter connected; **Gmail not connected this session** |
+| Git Auto-Sync | ✅ Healthy — 28 commits this week, one per generation run (last commit 8/31 04:05) |
+| Weekly Audit Cron | ✅ 8/31 on-time (8th consecutive since 7/6 miss) |
+| Content-Gen Cron | ✅ **21/21 slots — first perfect week on record**, zero failures |
+| MCP Servers | ⚠️ Odoo offline (~25 wks, all 5 calls refused this session); LinkedIn, LinkedIn API, Meta, Twitter connected; **Gmail not loaded this session** |
 
 ---
 
@@ -140,8 +141,8 @@ Historical: [[2026-04-20_Weekly_Briefing]] | [[2026-03-30_Weekly_Briefing]] | [[
 
 - [[Company_Handbook]] - Rules and guidelines for your AI Employee
 - [[Business_Goals]] - Track your objectives and metrics (add for Silver+)
-- [[2026-08-24_Weekly_Briefing]] - Latest CEO Weekly Briefing
+- [[2026-08-31_Weekly_Briefing]] - Latest CEO Weekly Briefing
 
 ---
 
-*Last updated: 2026-08-24 (Weekly Briefing generated - ✅ 8/24 audit on-time, 7th consecutive since 7/6 miss | Approvals: 313 (+6.1%, +18) — crossed 300 as projected, zero processed | 0 posts published (~180 days), 18 generated this wk (+38% WoW) | ⚠️ Gen cron 18/21 slots: 8/21 API 429 double-failure, 8/24 partial crash, Twitter 7/7 | Odoo offline ~24 wks, $799.99 ~168 days overdue — 48d past 120-day write-off)*
+*Last updated: 2026-08-31 (Weekly Briefing generated - ✅ 8/31 audit on-time, 8th consecutive since 7/6 miss | Approvals: 334 (+6.7%, +21) — growth accelerating, zero processed, crosses 400 ~Sept 21 | 0 posts published (~187 days), 21 generated this wk — **first perfect 21/21 gen week** | Odoo offline ~25 wks, $799.99 ~175 days overdue — 55d past 120-day write-off)*
