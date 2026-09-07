@@ -141,8 +141,8 @@ Historical: [[2026-05-04_Weekly_Briefing]] (Approvals: 111) | [[2026-04-20_Weekl
 
 - [[Company_Handbook]] - Rules and guidelines for your AI Employee
 - [[Business_Goals]] - Track your objectives and metrics (add for Silver+)
-- [[2026-08-31_Weekly_Briefing]] - Latest CEO Weekly Briefing
+- [[2026-09-07_Weekly_Briefing]] - Latest CEO Weekly Briefing
 
 ---
 
-*Last updated: 2026-08-31 (Weekly Briefing generated - ✅ 8/31 audit on-time, 8th consecutive since 7/6 miss | Approvals: 334 (+6.7%, +21) — growth accelerating, zero processed, crosses 400 ~Sept 21 | 0 posts published (~187 days), 21 generated this wk — **first perfect 21/21 gen week** | Odoo offline ~25 wks, $799.99 ~175 days overdue — 55d past 120-day write-off)*
+*Last updated: 2026-09-07 (Weekly Briefing generated - ✅ 9/7 audit on-time, 9th consecutive since 7/6 miss | Approvals: 352 (+5.4%, +18) — zero processed, crosses 400 ~Sept 21–28 | 0 posts published (~194 days), 18 generated this wk — **18/21 slots, first misses: host asleep at trigger time 9/5–9/6, 0 failed runs** | Odoo offline ~26 wks, $799.99 ~182 days overdue — 62d past 120-day write-off)*
